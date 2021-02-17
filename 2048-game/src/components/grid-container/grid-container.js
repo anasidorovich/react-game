@@ -1,33 +1,19 @@
 import React from "react";
 import "./grid-container.css";
 
-const GridContainer = () => {
+const GridContainer = ({ data }) => {
+  const items = data.map((row, rowIndex) => {
+      return (
+        <div key={rowIndex} className='grid-row'>
+          {row.map((num, index) => (
+            <div className="grid-cell" key={index}></div>
+          ))}
+        </div>
+      );
+  });
   return (
     <div className="grid-container ">
-      <div className="grid-row">
-        <div className="grid-cell"></div>
-        <div className="grid-cell"></div>
-        <div className="grid-cell"></div>
-        <div className="grid-cell"></div>
-      </div>
-      <div className="grid-row">
-        <div className="grid-cell"></div>
-        <div className="grid-cell"></div>
-        <div className="grid-cell"></div>
-        <div className="grid-cell"></div>
-      </div>
-      <div className="grid-row">
-        <div className="grid-cell"></div>
-        <div className="grid-cell"></div>
-        <div className="grid-cell"></div>
-        <div className="grid-cell"></div>
-      </div>
-      <div className="grid-row">
-        <div className="grid-cell"></div>
-        <div className="grid-cell"></div>
-        <div className="grid-cell"></div>
-        <div className="grid-cell"></div>
-      </div>
+      {items}
     </div>
   );
 };

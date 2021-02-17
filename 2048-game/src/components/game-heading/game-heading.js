@@ -14,11 +14,11 @@ const GameHeading = () => {
           </div>
           <div className="score-container d-flex flex-column align-items-center">
             <div className="d-flex align-items-baseline">
-              <div className="score d-flex flex-column btn-primary mb-2 mr-2 text-uppercase">
+              <div className="score d-flex flex-column bg-primary mb-2 mr-2 text-uppercase">
                 score
                 <span className="">1000</span>
               </div>
-              <div className="record d-flex flex-column btn-primary mb-2 text-uppercase">
+              <div className="record d-flex flex-column bg-primary mb-2 text-uppercase">
                 best
                 <span>1000</span>
               </div>
