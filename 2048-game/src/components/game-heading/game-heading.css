@@ -1,0 +1,10 @@
+.game-heading {
+  justify-content: space-between;
+}
+
+.score-container .score, .score-container .record {
+  width: 80px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+}

@@ -3,7 +3,7 @@ import './grid-item-container.css';
 
 const GridItemContainer = () => {
   return (
-      <div class="tile-container">
+      <div className="tile-container">
       </div>
   );
 }
