@@ -1,3 +1,3 @@
-import getItemPosition from './utils';
+import getItemPosition from "./utils";
 
 export default getItemPosition;

@@ -8,11 +8,23 @@ import GridItemContainer from "../grid-item-container";
 import getItemPosition from "../../utils";
 
 function App() {
-  const [ gridSize, setGridSize ] = useState(4);
-  const initialData = Array(gridSize).fill(Array.from({ length: gridSize }, (_, i) => i + 1));
+  const [gridSize, setGridSize] = useState(4);
+  const initialData = Array(gridSize).fill(
+    Array.from({ length: gridSize }, (_, i) => i + 1)
+  );
   const initialItems = [getItemPosition(gridSize), getItemPosition(gridSize)];
   const [data, setData] = useState(initialData);
   const [items, setItems] = useState(initialItems);
+  const [theme, setTheme] = useState("primary");
+
+  const onChangeTheme = (e) => {
+    const theme = e.target.innerHTML;
+    if (theme === 'Coffee') {
+      setTheme("dark");
+    } else {
+      setTheme("primary");
+    }
+  };
 
   function Tile(value, row, column) {
     this.value = value || 0;
@@ -40,13 +52,13 @@ function App() {
   const tiles = [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11];
   return (
     <div className="app mr-auto ml-auto">
-      <Header />
-      <GameHeading />
-      <div className="game-container wrapper bg-primary text-uppercase mb-5">
+      <Header onChangeTheme={onChangeTheme} theme={theme} />
+      <GameHeading theme={theme} />
+      <div className={`game-container wrapper bg-${theme} text-uppercase mb-5`}>
         <GridContainer data={data} />
         <GridItemContainer items={tiles} />
       </div>
-      <Footer />
+      <Footer theme={theme} />
     </div>
   );
 }

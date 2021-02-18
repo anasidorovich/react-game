@@ -1,3 +1,3 @@
-import GameHeading from './game-heading';
+import GameHeading from "./game-heading";
 
 export default GameHeading;

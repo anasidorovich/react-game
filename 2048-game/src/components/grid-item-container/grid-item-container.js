@@ -4,9 +4,9 @@ import "./grid-item-container.css";
 const GridItemContainer = ({ items }) => {
   const TileView = ({ tile }) => {
     const classArray = ["tile"];
-    classArray.push("tile-" + tile.value);
-    classArray.push("tile-position-" + tile.row + "-" + tile.column);
-    /*if (!tile.mergedInto) {
+    classArray.push(`tile-${tile.value}`);
+    classArray.push(`tile-position-${tile.row}-${tile.column}`);
+    /* if (!tile.mergedInto) {
         classArray.push('position_' + tile.row + '_' + tile.column);
       }
       if (tile.mergedInto) {
@@ -19,7 +19,7 @@ const GridItemContainer = ({ items }) => {
         classArray.push('row_from_' + tile.fromRow() + '_to_' + tile.toRow());
         classArray.push('column_from_' + tile.fromColumn() + '_to_' + tile.toColumn());
         classArray.push('isMoving');
-      }*/
+      } */
     const classes = classArray.join(" ");
     return (
       <div className={classes}>

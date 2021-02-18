@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "./header.css";
 
-const Header = () => {
+const Header = ({ onChangeTheme, theme }) => {
+  const themes = [
+    "Unicorns",
+    "Coffee"
+  ];
   return (
     <header className="app-header mb-4 mb-1">
-      <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+      <nav className={ `navbar navbar-expand-lg navbar-dark bg-${theme}` }>
         <div className="navbar-brand ml-5" href="#">
           2048
         </div>
@@ -17,9 +21,8 @@ const Header = () => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon" />
         </button>
-
         <div className="collapse navbar-collapse" id="navbarColor01">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item active">
@@ -52,27 +55,19 @@ const Header = () => {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Unicorns
+                Theme
               </a>
-              <div className="dropdown-menu">
-                <a className="dropdown-item" href="#">
-                  Action
-                </a>
-                <a className="dropdown-item" href="#">
-                  Another action
-                </a>
-                <a className="dropdown-item" href="#">
-                  Something else here
-                </a>
-                <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="#">
-                  Separated link
-                </a>
-              </div>
+              <ul className="dropdown-menu">
+                {themes.map((theme, index) => (
+                  <li key={index} className='dropdown-item' onClick={onChangeTheme}>
+                    {theme}
+                  </li>
+                ))}
+              </ul>
             </li>
           </ul>
         </div>
-      </nav>{" "}
+      </nav>
     </header>
   );
 };

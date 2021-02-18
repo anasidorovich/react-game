@@ -1,3 +1,3 @@
-import GridItemContainer from './grid-item-container';
+import GridItemContainer from "./grid-item-container";
 
 export default GridItemContainer;

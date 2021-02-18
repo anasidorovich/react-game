@@ -1,10 +1,10 @@
 import React from "react";
 import "./footer.css";
 
-const Footer = () => {
+const Footer = ({ theme }) => {
   return (
     <footer className="page-footer">
-      <div className="container bg-primary"></div>
+      <div className={ `container bg-${theme}`} />
     </footer>
   );
 };
