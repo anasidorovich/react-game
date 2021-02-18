@@ -17,15 +17,17 @@
   -moz-transition-property: top, left;
 }
 
-.tile.tile-position-1-1, .tile.tile-position-1-1 img {
+.tile.tile-position-1-1,
+.tile img {
   position: absolute;
   left: 0px;
   top: 0px;
 }
 
-.tile.tile-position-1-1 img {
+.tile img {
   border-radius: 3px;
 }
+
 .tile.tile-position-1-2 {
   position: absolute;
   left: 0px;
@@ -116,20 +118,79 @@
   top: 360px;
 }
 
+.tile.tile-2 {
+  background-image: url("../../assets/unicorns/4b8ff0b0559c32934d00a217b802e43c.jpg");
+  background-size: contain;
+}
+
+.tile.tile-4 {
+  background-image: url("../../assets/unicorns/c7728bb8e3155a9ea663119ceb4e0308.jpg");
+  background-size: contain;
+}
+
+.tile.tile-8 {
+  background-image: url("../../assets/unicorns/5d1c9107fc40fc2a189789d9d182d54a.jpg");
+  background-size: contain;
+}
+
+.tile.tile-16 {
+  background-image: url("../../assets/unicorns/7cbdf51bb0842949226e2ab165aa3f3f.jpg");
+  background-size: contain;
+}
+
+.tile.tile-32 {
+  background-image: url("../../assets/unicorns/0c38d4f131e2a5a7dab2ed7ee8e19ad4.jpg");
+  background-size: contain;
+}
+
+.tile.tile-64 {
+  background-image: url("../../assets/unicorns/efdb4b2cfcec7b22b65c1d5eb0c18784.jpg");
+  background-size: contain;
+}
+
+.tile.tile-128 {
+  background-image: url("../../assets/unicorns/bb8a97e063853ec11988cbfb0be318af.jpg");
+  background-size: contain;
+}
+
+.tile.tile-256 {
+  background-image: url("../../assets/unicorns/4b8ff0b0559c32934d00a217b802e43c.jpg");
+  background-size: contain;
+}
+
+.tile.tile-512 {
+  background-image: url("../../assets/unicorns/b525fd67b153599b13bfe4e00cd03a30.jpg");
+  background-size: contain;
+}
+
+.tile.tile-1024 {
+  background-image: url("../../assets/unicorns/50b50c6a676bcee7734366fd679e0c66.jpg");
+  background-size: contain;
+}
+
+.tile.tile-2048 {
+  background-image: url("../../assets/unicorns/80a059f1b70693684f02e3d4ec6e0f34.jpg");
+  background-size: contain;
+}
+
 .tile.tile-2 .tile-inner:after {
-    content: "2" !important;
+  content: "2" !important;
+}
+
+.tile-inner {
+  display: none;
 }
 
 .tile-inner:after {
-    position: absolute;
-    color: #593196;
-    right: 0;
-    font-size: 14px;
-    line-height: 1;
-    padding: 5px;
-    background: #fff;
-    border-radius: 50%;
-    min-width: 24px;
-    text-align: center;
-    z-index: 100;
+  position: absolute;
+  color: #593196;
+  right: 0;
+  font-size: 14px;
+  line-height: 1;
+  padding: 5px;
+  background: #fff;
+  border-radius: 50%;
+  min-width: 24px;
+  text-align: center;
+  z-index: 100;
 }

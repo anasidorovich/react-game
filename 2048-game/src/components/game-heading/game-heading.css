@@ -10,3 +10,11 @@
   align-items: center;
   justify-content: center;
 }
+
+.options, .options button {
+  width: 100%;
+}
+
+.play {
+  height: 50px;
+}

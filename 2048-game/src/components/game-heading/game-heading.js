@@ -4,11 +4,11 @@ import './game-heading.css';
 const GameHeading = () => {
   return (
       <div className="game-heading container g-0 d-flex">
-          <div className="d-flex flex-column">
-            <button type="button" className="btn btn-warning mb-2 mr-2">
+          <div className="play d-flex">
+            <button type="button" className="btn btn-primary mb-2 mr-2">
               Autoplay
             </button>
-            <button type="button" className="btn btn-success mr-2 mb-2">
+            <button type="button" className="btn btn-warning mb-2">
               New Game
             </button>
           </div>
@@ -23,7 +23,7 @@ const GameHeading = () => {
                 <span>1000</span>
               </div>
             </div>
-            <div className="d-flex">
+            <div className="options d-flex">
               <button type="button" className="btn btn-info">
                 options
               </button>
