@@ -1,10 +1,9 @@
 body {
   min-height: 100vh;
-  background-color: #cce8e0;
+  /*background-color: #cce8e0;
   background: #a741ff;
-  background: -moz-linear-gradient(top, #a741ff 0%, #5480fd 100%);
-  background: -webkit-linear-gradient(top, #a741ff 0%, #5480fd 100%);
-  background: linear-gradient(to bottom, #a741ff 0%, #5480fd 100%);
+  background: -moz-linear-gradient(top, #a741ff 0%, #5480fd 100%);*/
+  background: linear-gradient(to bottom, #a741ff 0%, #5480fd 100%)
 }
 
 .container {
