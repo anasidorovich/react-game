@@ -3,7 +3,7 @@ import "./game-heading.css";
 
 const GameHeading = () => {
   return (
-    <div className="game-heading container g-0 d-flex">
+    <div className="game-heading container pl-lg-0 pr-lg-0 d-flex">
       <div className="play d-flex">
         <button type="button" className={`btn btn-primary mb-2 mr-2`}>
           Autoplay

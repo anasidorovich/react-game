@@ -1,5 +1,6 @@
 .game-heading {
   justify-content: space-between;
+  width: 500px !important;
 }
 .score-container {
  color: #fff;
@@ -16,5 +17,5 @@
 }
 
 .play {
-  height: 50px;
+  height: 56px;
 }
