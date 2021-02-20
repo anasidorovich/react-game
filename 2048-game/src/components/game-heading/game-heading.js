@@ -1,11 +1,11 @@
 import React from "react";
 import "./game-heading.css";
 
-const GameHeading = ({ theme }) => {
+const GameHeading = () => {
   return (
     <div className="game-heading container g-0 d-flex">
       <div className="play d-flex">
-        <button type="button" className={`btn btn-${theme} mb-2 mr-2`}>
+        <button type="button" className={`btn btn-primary mb-2 mr-2`}>
           Autoplay
         </button>
         <button type="button" className="btn btn-warning mb-2">
@@ -14,11 +14,15 @@ const GameHeading = ({ theme }) => {
       </div>
       <div className="score-container d-flex flex-column align-items-center">
         <div className="d-flex align-items-baseline">
-          <div className={`score d-flex flex-column bg-${theme} mb-2 mr-2 text-uppercase`} >
+          <div
+            className={`score d-flex flex-column bg-primary mb-2 mr-2 text-uppercase`}
+          >
             score
             <span className="">1000</span>
           </div>
-          <div className={`record d-flex flex-column bg-${theme} mb-2 text-uppercase`} >
+          <div
+            className={`record d-flex flex-column bg-primary mb-2 text-uppercase`}
+          >
             best
             <span>1000</span>
           </div>

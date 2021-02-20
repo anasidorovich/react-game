@@ -18,7 +18,7 @@
   background-size: cover;
 }
 
-.cats .tile {
+.dark .tile {
   border: 1px solid white;
 }
 
@@ -123,47 +123,47 @@
   top: 360px;
 }
 
-.cats .tile.tile-2 {
+.dark .tile.tile-2 {
   background-image: url("../../assets/unicorns/efb9621097484e1ff581d581ca9ef208.jpg");
 }
 
-.cats .tile.tile-4 {
+.dark .tile.tile-4 {
   background-image: url("../../assets/unicorns/Y8eRG5W7nGs.jpg");
 }
 
-.cats .tile.tile-8 {
+.dark .tile.tile-8 {
   background-image: url("../../assets/unicorns/28f6c9729f5570d49376a0acc6345449.jpg");
 }
 
-.cats .tile.tile-16 {
+.dark .tile.tile-16 {
   background-image: url("../../assets/unicorns/8453b068e98833402242fe1014611cb2.jpg");
 }
 
-.cats .tile.tile-32 {
+.dark .tile.tile-32 {
   background-image: url("../../assets/unicorns/2-1-200x200.jpg");
 }
 
-.cats .tile.tile-64 {
+.dark .tile.tile-64 {
   background-image: url("../../assets/unicorns/EcMKiWnWoAY5bFi.jpg");
 }
 
-.cats .tile.tile-128 {
+.dark .tile.tile-128 {
   background-image: url("../../assets/unicorns/бе-изна-черного-кота-87502767.jpg");
 }
 
-.cats .tile.tile-256 {
+.dark .tile.tile-256 {
   background-image: url("../../assets/unicorns/75f99edf88a7cdbe842852a38c875244--assessment-top-ten.jpg");
 }
 
-.cats .tile.tile-512 {
+.dark .tile.tile-512 {
   background-image: url("../../assets/unicorns/C8t7BHgXcAArZ79.jpg");
 }
 
-.cats .tile.tile-1024 {
+.dark .tile.tile-1024 {
   background-image: url("../../assets/unicorns/x2507197-754805690.png");
 }
 
-.cats .tile.tile-2048 {
+.dark .tile.tile-2048 {
   background-image: url("../../assets/unicorns/черные-котики12-768x918.jpg");
 }
 

@@ -3,8 +3,8 @@ import "./footer.css";
 
 const Footer = ({ theme }) => {
   return (
-    <footer className="page-footer">
-      <div className={ `container bg-${theme}`} />
+    <footer className="page-footer bg-primary">
+      <div className={`container`} />
     </footer>
   );
 };

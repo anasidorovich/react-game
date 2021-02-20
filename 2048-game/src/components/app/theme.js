@@ -4,15 +4,14 @@ const Component = () => {
   const { switcher, themes, currentTheme, status } = useThemeSwitcher();
   const [theme, setTheme] = React.useState(false);
 
-  if (status === 'loading') {
-    return <div>Loading styles...</div>;
-  }
+  const onChangeTheme = (e) => {
+     const theme = e.target.innerHTML;
+        if (theme === 'Cats') {
+          setTheme("dark");
+        } else {
+          setTheme("primary");
+        }
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(previous => {
-      switcher({ theme: previous ? themes.light : themes.dark });
-      return !previous;
-    });
   };
 
   return (

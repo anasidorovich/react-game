@@ -1,15 +1,27 @@
 import React, { useState } from "react";
+import { useThemeSwitcher } from "react-css-theme-switcher";
 import "./header.css";
 
-const Header = ({ onChangeTheme, theme }) => {
-  const themes = [
-    "Unicorns",
-    "Cats"
-  ];
+const Header = ({ onChangeTheme }) => {
+  const themes = ["Unicorns", "Cats"];
+  const defaultBgColor = "linear-gradient(to bottom, #a741ff 0%, #5480fd 100%)";
+  const { switcher, themes: th, currentTheme, status } = useThemeSwitcher();
+
+  const onSwitchTheme = (e) => {
+    const theme = e.target.innerHTML;
+    if (theme === "Cats") {
+      switcher({ theme: th.dark });
+      document.body.style.background = "#fff";
+    } else {
+      switcher({ theme: th.primary });
+      document.body.style.background = defaultBgColor;
+    }
+    onChangeTheme(theme);
+  };
 
   return (
     <header className="app-header mb-4 mb-1">
-      <nav className={ `navbar navbar-expand-lg navbar-dark bg-${theme}` }>
+      <nav className={`navbar navbar-expand-lg navbar-dark bg-primary`}>
         <div className="navbar-brand ml-5" href="#">
           2048
         </div>
@@ -44,7 +56,11 @@ const Header = ({ onChangeTheme, theme }) => {
               </a>
               <ul className="dropdown-menu">
                 {themes.map((theme, index) => (
-                  <li key={index} className='dropdown-item' onClick={onChangeTheme}>
+                  <li
+                    key={index}
+                    className="dropdown-item"
+                    onClick={onSwitchTheme}
+                  >
                     {theme}
                   </li>
                 ))}

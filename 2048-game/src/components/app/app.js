@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./app.css";
-import { useScript } from "../../hooks";
+import { useEvent } from "../../hooks";
 import Header from "../header";
 import Footer from "../footer";
 import GameHeading from "../game-heading";
 import GridContainer from "../grid-container";
 import GridItemContainer from "../grid-item-container";
 import getItemPosition from "../../utils";
-import { ThemeSwitcherProvider, useThemeSwitcher } from 'react-css-theme-switcher';
-
-
+import { ThemeSwitcherProvider } from "react-css-theme-switcher";
 
 function App() {
   const themes = {
@@ -18,37 +16,30 @@ function App() {
   };
 
   const [gridSize, setGridSize] = useState(4);
+
   const initialData = Array(gridSize).fill(
-    Array.from({ length: gridSize }, (_, i) => i + 1)
+    Array.from({ length: gridSize }, (_, i) => 0)
   );
 
-  const defaultBgColor = "linear-gradient(to bottom, #a741ff 0%, #5480fd 100%)";
+  const directions = {
+    UP: "ArrowUp",
+    DOWN: "ArrowDown",
+    RIGHT: "ArrowRight",
+    LEFT: "ArrowLeft",
+  };
+
   const initialItems = [getItemPosition(gridSize), getItemPosition(gridSize)];
- /* const [url, setUrl ] = useState("https://bootswatch.com/4/pulse/bootstrap.min.css");
-  const theme1 = useScript(url);*/
   const [data, setData] = useState(initialData);
   const [items, setItems] = useState(initialItems);
   const [theme, setTheme] = useState("primary");
 
-  const onChangeTheme = (e) => {
-    const { switcher, themes: th, currentTheme, status } = useThemeSwitcher();
-    const theme = e.target.innerHTML;
-    if (theme === 'Cats') {
+  const onChangeTheme = (theme) => {
+    if (theme === "Cats") {
       setTheme("dark");
-      switcher({ theme: "dark" });
     } else {
       setTheme("primary");
-      switcher({ theme: "primary" });
     }
   };
-
-  useEffect(() => {
-    if (theme === 'dark') {
-           document.body.style.background = "#fff";
-        } else {
-          document.body.style.background = defaultBgColor;
-        }
-  }, [theme]);
 
   function Tile(value, row, column) {
     this.value = value || 0;
@@ -74,18 +65,52 @@ function App() {
   const t10 = new Tile(1024, 2, 4);
   const t11 = new Tile(2048, 3, 1);
   const tiles = [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11];
+
+  const handleKeyDown = (event) => {
+    switch (event.key) {
+      case directions.UP:
+        moveUp();
+        break;
+      case directions.DOWN:
+        moveDown();
+        break;
+      case directions.LEFT:
+        moveLeft();
+        break;
+      case directions.RIGHT:
+        moveRight();
+        break;
+      default:
+        break;
+    }
+  };
+
+  useEvent("keydown", handleKeyDown);
+
+  const moveRight = () => {
+    console.log(initialData);
+  };
+
+  const moveLeft = () => {};
+
+  const moveUp = () => {};
+
+  const moveDown = () => {};
+
   return (
     <ThemeSwitcherProvider defaultTheme="primary" themeMap={themes}>
-    <div className={ `app mr-auto ml-auto` }>
-      <Header onChangeTheme={onChangeTheme} theme={theme} />
-      <GameHeading theme={theme} />
-      <div className={`game-container wrapper bg-${theme} text-uppercase mb-5`}>
-        <GridContainer data={data} />
-        <GridItemContainer items={tiles} />
+      <div className={`app mr-auto ml-auto ${theme}`}>
+        <Header onChangeTheme={onChangeTheme} />
+        <GameHeading />
+        <div
+          className={`game-container wrapper bg-primary text-uppercase mb-5`}
+        >
+          <GridContainer data={data} />
+          <GridItemContainer items={tiles} />
+        </div>
+        <Footer />
       </div>
-      <Footer theme={theme} />
-    </div>
-       </ThemeSwitcherProvider>
+    </ThemeSwitcherProvider>
   );
 }
 

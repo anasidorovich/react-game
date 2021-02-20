@@ -23,7 +23,9 @@ const GridItemContainer = ({ items }) => {
     const classes = classArray.join(" ");
     return (
       <div className={classes}>
-        <div className="tile-inner"><span>{tile.value}</span></div>
+        <div className="tile-inner">
+          <span>{tile.value}</span>
+        </div>
       </div>
     );
   };
