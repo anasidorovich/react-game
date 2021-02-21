@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { cloneDeep } from "lodash";
 import "./app.css";
 import { useEvent } from "../../hooks";
 import Header from "../header";
@@ -8,6 +9,7 @@ import GridContainer from "../grid-container";
 import GridItemContainer from "../grid-item-container";
 import getItemPosition from "../../utils";
 import { ThemeSwitcherProvider } from "react-css-theme-switcher";
+import { initTiles } from "./initTiles";
 
 function App() {
   const themes = {
@@ -17,9 +19,31 @@ function App() {
 
   const [gridSize, setGridSize] = useState(4);
 
-  const initialData = Array(gridSize).fill(
+  /* const initialData = Array(gridSize).fill(
     Array.from({ length: gridSize }, (_, i) => 0)
+  );*/
+
+  const initialData = Array.from(new Array(4), () =>
+    Array.from(new Array(4), () => 0)
   );
+
+  const newGame = {
+    tiles: initTiles(gridSize),
+    score: 0,
+  };
+
+  function getNewState() {
+    return {
+      tiles: initTiles(gridSize),
+      score: 0,
+    };
+  }
+
+  const [gameData, setGameData] = useState(getNewState());
+
+  const onClickNewGame = () => {
+    setGameData(getNewState());
+  };
 
   const directions = {
     UP: "ArrowUp",
@@ -28,9 +52,11 @@ function App() {
     LEFT: "ArrowLeft",
   };
 
-  const initialItems = [getItemPosition(gridSize), getItemPosition(gridSize)];
+  gameData.tiles.map((tile) => {
+    //initialData[tile.row][tile.col] = 2;
+  });
+
   const [data, setData] = useState(initialData);
-  const [items, setItems] = useState(initialItems);
   const [theme, setTheme] = useState("primary");
 
   const onChangeTheme = (theme) => {
@@ -40,31 +66,6 @@ function App() {
       setTheme("primary");
     }
   };
-
-  function Tile(value, row, column) {
-    this.value = value || 0;
-    this.row = row || -1;
-    this.column = column || -1;
-    this.oldRow = -1;
-    this.oldColumn = -1;
-    this.markForDeletion = false;
-    this.mergedInto = null;
-    this.id = Tile.id++;
-  }
-
-  Tile.id = 0;
-  const t1 = new Tile(2, 3, 3);
-  const t2 = new Tile(4, 3, 2);
-  const t3 = new Tile(8, 1, 1);
-  const t4 = new Tile(16, 1, 2);
-  const t5 = new Tile(32, 1, 3);
-  const t6 = new Tile(64, 1, 4);
-  const t7 = new Tile(128, 2, 1);
-  const t8 = new Tile(256, 2, 2);
-  const t9 = new Tile(512, 2, 3);
-  const t10 = new Tile(1024, 2, 4);
-  const t11 = new Tile(2048, 3, 1);
-  const tiles = [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11];
 
   const handleKeyDown = (event) => {
     switch (event.key) {
@@ -88,7 +89,31 @@ function App() {
   useEvent("keydown", handleKeyDown);
 
   const moveRight = () => {
-    console.log(initialData);
+    console.log(INITIAL_DATA2);
+    for (let i = 0; i < gridSize; i++) {
+      const row = INITIAL_DATA2[i];
+      console.log("row");
+      console.log(row);
+      const filteredRow = row.filter((tile) => tile.value != 0);
+
+      const zeros = Array(gridSize - filteredRow.length).fill(0);
+      const newRow = zeros.concat(filteredRow);
+
+      row.map((tile, ind) => {
+        if (tile.column != i || newRow[ind] !== tile) {
+          //const t = newRow[ind];
+        }
+        if (newRow[ind] === tile) {
+        }
+      });
+      tiles[i].id = tiles[i].id + zeros.length;
+      console.log("newrow=");
+      console.log(newRow);
+      //console.log(tile);
+      INITIAL_DATA2[i] = newRow;
+    }
+
+    console.log(INITIAL_DATA2);
   };
 
   const moveLeft = () => {};
@@ -101,12 +126,12 @@ function App() {
     <ThemeSwitcherProvider defaultTheme="primary" themeMap={themes}>
       <div className={`app mr-auto ml-auto ${theme}`}>
         <Header onChangeTheme={onChangeTheme} />
-        <GameHeading />
+        <GameHeading onClickNewGame={onClickNewGame} />
         <div
           className={`game-container wrapper bg-primary text-uppercase mb-5`}
         >
           <GridContainer data={data} />
-          <GridItemContainer items={tiles} />
+          <GridItemContainer items={gameData.tiles} />
         </div>
         <Footer />
       </div>

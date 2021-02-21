@@ -6,7 +6,7 @@ const GridContainer = ({ data }) => {
     return (
       <div key={rowIndex} className="grid-row">
         {row.map((num, index) => (
-          <div className="grid-cell" key={index} />
+          <div className="grid-cell" key={index + 100} />
         ))}
       </div>
     );

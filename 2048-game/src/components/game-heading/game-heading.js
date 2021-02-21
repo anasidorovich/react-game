@@ -1,14 +1,14 @@
 import React from "react";
 import "./game-heading.css";
 
-const GameHeading = () => {
+const GameHeading = ({ onClickNewGame }) => {
   return (
     <div className="game-heading container pl-lg-0 pr-lg-0 d-flex">
       <div className="play d-flex">
         <button type="button" className={`btn btn-primary mb-2 mr-2`}>
           Autoplay
         </button>
-        <button type="button" className="btn btn-warning mb-2">
+        <button type="button" className="btn btn-warning mb-2" onClick={onClickNewGame}>
           New Game
         </button>
       </div>

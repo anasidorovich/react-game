@@ -2,10 +2,10 @@ import React from "react";
 import "./grid-item-container.css";
 
 const GridItemContainer = ({ items }) => {
-  const TileView = ({ tile }) => {
+  const TileView = ({ tile, id }) => {
     const classArray = ["tile"];
-    classArray.push(`tile-${tile.value}`);
-    classArray.push(`tile-position-${tile.row}-${tile.column}`);
+    classArray.push(`data-id=${id} tile-${tile.value}`);
+    classArray.push(`tile-position-${tile.col + 1}-${tile.row + 1}`);
     /* if (!tile.mergedInto) {
         classArray.push('position_' + tile.row + '_' + tile.column);
       }
@@ -31,9 +31,7 @@ const GridItemContainer = ({ items }) => {
   };
 
   const tiles = items
-    .filter((tile) => tile.value != 0)
-    .map((tile) => <TileView tile={tile} id={tile.id} key={tile.id} />);
-
+      .map((tile) => <TileView tile={tile} id={tile.id} key={tile.id} />);
   return <div className="tile-container">{tiles}</div>;
 };
 
