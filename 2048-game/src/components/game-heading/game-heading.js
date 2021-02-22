@@ -1,7 +1,7 @@
 import React from "react";
 import "./game-heading.css";
 
-const GameHeading = ({ onClickNewGame }) => {
+const GameHeading = ({ score, bestScore, onClickNewGame }) => {
   return (
     <div className="game-heading container pl-lg-0 pr-lg-0 d-flex">
       <div className="play d-flex">
@@ -18,13 +18,13 @@ const GameHeading = ({ onClickNewGame }) => {
             className={`score d-flex flex-column bg-primary mb-2 mr-2 text-uppercase`}
           >
             score
-            <span className="">1000</span>
+            <span className="">{score}</span>
           </div>
           <div
             className={`record d-flex flex-column bg-primary mb-2 text-uppercase`}
           >
             best
-            <span>1000</span>
+            <span>{bestScore}</span>
           </div>
         </div>
         <div className="options d-flex">

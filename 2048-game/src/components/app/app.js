@@ -7,9 +7,9 @@ import Footer from "../footer";
 import GameHeading from "../game-heading";
 import GridContainer from "../grid-container";
 import GridItemContainer from "../grid-item-container";
-import getItemPosition from "../../utils";
 import { ThemeSwitcherProvider } from "react-css-theme-switcher";
-import { initTiles } from "./initTiles";
+import { initTiles, createNewTiles } from "./initTiles";
+import { move, directions, removeAndIncreaseTiles } from "./move";
 
 function App() {
   const themes = {
@@ -18,43 +18,21 @@ function App() {
   };
 
   const [gridSize, setGridSize] = useState(4);
-
-  /* const initialData = Array(gridSize).fill(
-    Array.from({ length: gridSize }, (_, i) => 0)
-  );*/
-
-  const initialData = Array.from(new Array(4), () =>
-    Array.from(new Array(4), () => 0)
+  const initialData = Array.from(new Array(gridSize), () =>
+    Array.from(new Array(gridSize), () => 0)
   );
+  const [tiles, setTiles] = useState(() => {
+    const initialState = initTiles(gridSize);
+    return initialState;
+  });
 
-  const newGame = {
-    tiles: initTiles(gridSize),
-    score: 0,
-  };
-
-  function getNewState() {
-    return {
-      tiles: initTiles(gridSize),
-      score: 0,
-    };
-  }
-
-  const [gameData, setGameData] = useState(getNewState());
+  const [score, setScore] = useState(0);
+  const [bestScore, setBestScore] = useState(0);
 
   const onClickNewGame = () => {
-    setGameData(getNewState());
+    setTiles(initTiles(gridSize));
+    setScore(0);
   };
-
-  const directions = {
-    UP: "ArrowUp",
-    DOWN: "ArrowDown",
-    RIGHT: "ArrowRight",
-    LEFT: "ArrowLeft",
-  };
-
-  gameData.tiles.map((tile) => {
-    //initialData[tile.row][tile.col] = 2;
-  });
 
   const [data, setData] = useState(initialData);
   const [theme, setTheme] = useState("primary");
@@ -67,76 +45,49 @@ function App() {
     }
   };
 
-  const handleKeyDown = (event) => {
-    switch (event.key) {
-      case directions.UP:
-        moveUp();
-        break;
-      case directions.DOWN:
-        moveDown();
-        break;
-      case directions.LEFT:
-        moveLeft();
-        break;
-      case directions.RIGHT:
-        moveRight();
-        break;
-      default:
-        break;
+  const handleKeyDown = async (event) => {
+    if (Object.values(directions).includes(event.key)) {
+      setTiles((prevTiles) => move(prevTiles, event.key, gridSize));
     }
+    await delay(100);
+
+    setTiles((prevTiles) => {
+      const state = removeAndIncreaseTiles(score, prevTiles);
+      setScore(state[1]);
+      return state[0];
+    });
+    setTiles((prevTiles) => createNewTiles(prevTiles, gridSize));
   };
+
+  useEffect(() => {
+    if (score > bestScore) {
+      setBestScore(score);
+    }
+  }, [score]);
 
   useEvent("keydown", handleKeyDown);
-
-  const moveRight = () => {
-    console.log(INITIAL_DATA2);
-    for (let i = 0; i < gridSize; i++) {
-      const row = INITIAL_DATA2[i];
-      console.log("row");
-      console.log(row);
-      const filteredRow = row.filter((tile) => tile.value != 0);
-
-      const zeros = Array(gridSize - filteredRow.length).fill(0);
-      const newRow = zeros.concat(filteredRow);
-
-      row.map((tile, ind) => {
-        if (tile.column != i || newRow[ind] !== tile) {
-          //const t = newRow[ind];
-        }
-        if (newRow[ind] === tile) {
-        }
-      });
-      tiles[i].id = tiles[i].id + zeros.length;
-      console.log("newrow=");
-      console.log(newRow);
-      //console.log(tile);
-      INITIAL_DATA2[i] = newRow;
-    }
-
-    console.log(INITIAL_DATA2);
-  };
-
-  const moveLeft = () => {};
-
-  const moveUp = () => {};
-
-  const moveDown = () => {};
 
   return (
     <ThemeSwitcherProvider defaultTheme="primary" themeMap={themes}>
       <div className={`app mr-auto ml-auto ${theme}`}>
         <Header onChangeTheme={onChangeTheme} />
-        <GameHeading onClickNewGame={onClickNewGame} />
+        <GameHeading
+          onClickNewGame={onClickNewGame}
+          score={score}
+          bestScore={bestScore}
+        />
         <div
           className={`game-container wrapper bg-primary text-uppercase mb-5`}
         >
           <GridContainer data={data} />
-          <GridItemContainer items={gameData.tiles} />
+          <GridItemContainer items={tiles} />
         </div>
         <Footer />
       </div>
     </ThemeSwitcherProvider>
   );
 }
+
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default App;
