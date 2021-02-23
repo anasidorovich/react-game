@@ -20,9 +20,9 @@ const Header = ({ onChangeTheme }) => {
   };
 
   return (
-    <header className="app-header mb-4 mb-1">
-      <nav className={`navbar navbar-expand-lg navbar-dark bg-primary`}>
-        <div className="navbar-brand ml-5" href="#">
+    <header className="app-header bg-primary mb-4 mb-1">
+      <nav className={`container navbar navbar-expand-lg navbar-dark bg-primary`}>
+        <div className="navbar-brand" href="#">
           2048
         </div>
         <button

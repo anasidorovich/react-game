@@ -19,3 +19,11 @@
 .play {
   height: 56px;
 }
+
+.dark .play .btn {
+  min-width: 112.3px;
+}
+
+.play .btn {
+  min-width: 81.5px;
+}

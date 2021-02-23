@@ -117,13 +117,14 @@ function rotateTo(gridItems, direction) {
   }
 }
 
-function removeAndIncreaseTiles(score, tiles) {
+function combine(score, tiles) {
   const filteredTiles = tiles
     .filter((tile) => tile.state !== tileStates.DYING)
     .map((tile) => {
       if (tile.state === tileStates.INCREASE) {
         tile.value *= 2;
         score += tile.value;
+        tile.merged = true;
       }
 
       tile.state = tileStates.IDLE;
@@ -131,6 +132,6 @@ function removeAndIncreaseTiles(score, tiles) {
       return tile;
     });
 
-  return [filteredTiles, score];
+  return { tiles: filteredTiles, score: score };
 }
-export { move, directions, removeAndIncreaseTiles };
+export { move, directions, combine };

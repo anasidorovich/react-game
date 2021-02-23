@@ -9,7 +9,7 @@ import GridContainer from "../grid-container";
 import GridItemContainer from "../grid-item-container";
 import { ThemeSwitcherProvider } from "react-css-theme-switcher";
 import { initTiles, createNewTiles } from "./initTiles";
-import { move, directions, removeAndIncreaseTiles } from "./move";
+import { move, directions, combine } from "./move";
 
 function App() {
   const themes = {
@@ -34,8 +34,13 @@ function App() {
     setScore(0);
   };
 
+  const onClickAutoPlay = () => {
+    setPlayable(prevPlayable => !prevPlayable);
+  };
+
   const [data, setData] = useState(initialData);
   const [theme, setTheme] = useState("primary");
+  const [playable, setPlayable] = useState(false);
 
   const onChangeTheme = (theme) => {
     if (theme === "Cats") {
@@ -52,9 +57,9 @@ function App() {
     await delay(100);
 
     setTiles((prevTiles) => {
-      const state = removeAndIncreaseTiles(score, prevTiles);
-      setScore(state[1]);
-      return state[0];
+      const state = combine(score, prevTiles);
+      setScore(state.score);
+      return state.tiles;
     });
     setTiles((prevTiles) => createNewTiles(prevTiles, gridSize));
   };
@@ -65,6 +70,21 @@ function App() {
     }
   }, [score]);
 
+  useEffect(() => {
+    let interval;
+    if (playable) {
+      interval = setInterval(() => {
+        const values = Object.values(directions);
+        const key = values[Math.floor(Math.random() * values.length)];
+        handleKeyDown({ key: key });
+      }, 1000);
+    } else {
+      interval && clearInterval(interval);
+    }
+
+    return () => clearInterval(interval);
+  }, [playable]);
+
   useEvent("keydown", handleKeyDown);
 
   return (
@@ -73,6 +93,8 @@ function App() {
         <Header onChangeTheme={onChangeTheme} />
         <GameHeading
           onClickNewGame={onClickNewGame}
+          onClickAutoPlay={onClickAutoPlay}
+          playable={playable}
           score={score}
           bestScore={bestScore}
         />

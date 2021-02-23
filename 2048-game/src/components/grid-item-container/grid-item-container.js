@@ -6,20 +6,12 @@ const GridItemContainer = ({ items }) => {
     const classArray = ["tile"];
     classArray.push(`data-id=${id} tile-${tile.value}`);
     classArray.push(`tile-position-${tile.col + 1}-${tile.row + 1}`);
-    /* if (!tile.mergedInto) {
-        classArray.push('position_' + tile.row + '_' + tile.column);
-      }
-      if (tile.mergedInto) {
-        classArray.push('merged');
-      }
-      if (tile.isNew()) {
-        classArray.push('new');
-      }
-      if (tile.hasMoved()) {
-        classArray.push('row_from_' + tile.fromRow() + '_to_' + tile.toRow());
-        classArray.push('column_from_' + tile.fromColumn() + '_to_' + tile.toColumn());
-        classArray.push('isMoving');
-      } */
+    if (tile.merged) {
+      classArray.push("tile-merged");
+    }
+    if (tile.isNew) {
+      classArray.push("new");
+    }
     const classes = classArray.join(" ");
     return (
       <div className={classes}>
@@ -30,8 +22,11 @@ const GridItemContainer = ({ items }) => {
     );
   };
 
-  const tiles = items
-      .map((tile) => <TileView tile={tile} id={tile.id} key={tile.id} />);
+  const tiles = items.map((tile) => (
+    <TileView tile={tile} id={tile.id} key={tile.id} />
+  ));
+  console.log("tiles");
+  console.log(tiles);
   return <div className="tile-container">{tiles}</div>;
 };
 
