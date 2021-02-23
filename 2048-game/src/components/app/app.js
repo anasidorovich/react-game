@@ -7,8 +7,13 @@ import GameHeading from "../game-heading";
 import GridContainer from "../grid-container";
 import GridItemContainer from "../grid-item-container";
 import { ThemeSwitcherProvider } from "react-css-theme-switcher";
-import { initTiles, createNewTiles } from "./initTiles";
-import { move, directions, combine } from "./move";
+import {
+  initTiles,
+  createNewTiles,
+  move,
+  directions,
+  combine,
+} from "../../helpers";
 
 function App() {
   const themes = {
@@ -25,16 +30,21 @@ function App() {
     return initialState;
   });
 
-  const [score, setScore] = useState(0);
+  const initState = {
+    tiles: initTiles(gridSize),
+    score: 0,
+  };
+  const [state, setState] = useState(initState);
   const [bestScore, setBestScore] = useState(0);
 
   const onClickNewGame = () => {
     setTiles(initTiles(gridSize));
     setScore(0);
+    setState(initState);
   };
 
   const onClickAutoPlay = () => {
-    setPlayable(prevPlayable => !prevPlayable);
+    setPlayable((prevPlayable) => !prevPlayable);
   };
 
   const [data, setData] = useState(initialData);
@@ -51,23 +61,39 @@ function App() {
 
   const handleKeyDown = async (event) => {
     if (Object.values(directions).includes(event.key)) {
-      setTiles((prevTiles) => move(prevTiles, event.key, gridSize));
+      setState((prevState) => {
+        console.log(prevState);
+        return {
+          ...prevState,
+          tiles: move(prevState.tiles, event.key, gridSize),
+        };
+      });
     }
     await delay(100);
 
-    setTiles((prevTiles) => {
-      const state = combine(score, prevTiles);
-      setScore(state.score);
-      return state.tiles;
+    setState((prevState) => {
+      const nextState = combine(prevState.score, prevState.tiles);
+      return {
+        score: nextState.score,
+        tiles: nextState.tiles,
+      };
     });
-    setTiles((prevTiles) => createNewTiles(prevTiles, gridSize));
+
+    setState((prevState) => {
+      const nextState = combine(prevState.score, prevState.tiles);
+      return {
+        ...prevState,
+        tiles: createNewTiles(prevState.tiles, gridSize),
+      };
+    });
   };
 
   useEffect(() => {
+    const { score } = state;
     if (score > bestScore) {
       setBestScore(score);
     }
-  }, [score]);
+  }, [state.score]);
 
   useEffect(() => {
     let interval;
@@ -91,7 +117,7 @@ function App() {
       <div className={`app mr-auto ml-auto ${theme}`}>
         <Header onChangeTheme={onChangeTheme} />
         <GameHeading
-          score={score}
+          score={state.score}
           bestScore={bestScore}
           onClickNewGame={onClickNewGame}
           onClickAutoPlay={onClickAutoPlay}
@@ -101,7 +127,7 @@ function App() {
           className={`game-container wrapper bg-primary text-uppercase mb-5`}
         >
           <GridContainer data={data} />
-          <GridItemContainer items={tiles} />
+          <GridItemContainer items={state.tiles} />
         </div>
         <Footer />
       </div>

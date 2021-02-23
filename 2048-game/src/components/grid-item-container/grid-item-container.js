@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import "./grid-item-container.css";
 
 const GridItemContainer = ({ items }) => {
@@ -26,8 +26,6 @@ const GridItemContainer = ({ items }) => {
   const tiles = items.map((tile) => (
     <TileView tile={tile} id={tile.id} key={tile.id} />
   ));
-  console.log("tiles");
-  console.log(tiles);
   return <div className="tile-container">{tiles}</div>;
 };
 
@@ -37,5 +35,4 @@ GridItemContainer.propTypes = {
   id: PropTypes.number,
   items: PropTypes.array,
   tile: PropTypes.any,
-}
-
+};
