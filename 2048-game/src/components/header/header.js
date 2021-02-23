@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
+import PropTypes from 'prop-types';
 import { useThemeSwitcher } from "react-css-theme-switcher";
 import "./header.css";
 
 const Header = ({ onChangeTheme }) => {
   const themes = ["Unicorns", "Cats"];
   const defaultBgColor = "linear-gradient(to bottom, #a741ff 0%, #5480fd 100%)";
-  const { switcher, themes: th, currentTheme, status } = useThemeSwitcher();
+  const { switcher, themes: th } = useThemeSwitcher();
 
   const onSwitchTheme = (e) => {
     const theme = e.target.innerHTML;
@@ -74,3 +75,7 @@ const Header = ({ onChangeTheme }) => {
 };
 
 export default Header;
+
+Header.propTypes = {
+ onChangeTheme: PropTypes.func
+}

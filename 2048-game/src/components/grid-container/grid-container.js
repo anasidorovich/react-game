@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import "./grid-container.css";
 
 const GridContainer = ({ data }) => {
@@ -15,3 +16,7 @@ const GridContainer = ({ data }) => {
 };
 
 export default GridContainer;
+
+GridContainer.propTypes = {
+  data: PropTypes.array,
+};

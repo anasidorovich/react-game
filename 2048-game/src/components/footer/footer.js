@@ -1,7 +1,7 @@
 import React from "react";
 import "./footer.css";
 
-const Footer = ({ theme }) => {
+const Footer = () => {
   return (
     <footer className="bg-primary text-center text-white pt-4">
       <div className="container d-flex flex-column">

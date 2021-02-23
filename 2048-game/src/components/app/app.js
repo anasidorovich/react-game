@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { cloneDeep } from "lodash";
 import "./app.css";
 import { useEvent } from "../../hooks";
 import Header from "../header";
@@ -92,11 +91,11 @@ function App() {
       <div className={`app mr-auto ml-auto ${theme}`}>
         <Header onChangeTheme={onChangeTheme} />
         <GameHeading
+          score={score}
+          bestScore={bestScore}
           onClickNewGame={onClickNewGame}
           onClickAutoPlay={onClickAutoPlay}
           playable={playable}
-          score={score}
-          bestScore={bestScore}
         />
         <div
           className={`game-container wrapper bg-primary text-uppercase mb-5`}

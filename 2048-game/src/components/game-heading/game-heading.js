@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import "./game-heading.css";
 
 const GameHeading = ({
@@ -53,3 +54,12 @@ const GameHeading = ({
 };
 
 export default GameHeading;
+
+GameHeading.propTypes = {
+  onClickNewGame: PropTypes.func,
+  onClickAutoPlay: PropTypes.func,
+  playable: PropTypes.bool,
+  score: PropTypes.number,
+  bestScore: PropTypes.number,
+};
+

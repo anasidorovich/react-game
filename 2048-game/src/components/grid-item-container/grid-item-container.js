@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import "./grid-item-container.css";
 
 const GridItemContainer = ({ items }) => {
@@ -31,3 +32,10 @@ const GridItemContainer = ({ items }) => {
 };
 
 export default GridItemContainer;
+
+GridItemContainer.propTypes = {
+  id: PropTypes.number,
+  items: PropTypes.array,
+  tile: PropTypes.any,
+}
+
