@@ -37,3 +37,11 @@ ul.social-buttons li a {
   outline: 0;
   border: 1px solid;
 }
+
+.rs-school {
+  background-image: url("../../assets/rs_school_js.svg");
+  height: 40px;
+  width: 108px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}

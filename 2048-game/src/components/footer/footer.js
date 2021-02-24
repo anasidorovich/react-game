@@ -17,15 +17,7 @@ const Footer = () => {
                 <i className="fab fa-instagram"></i>
               </a>
             </li>
-            <li className="list-inline-item">
-              <a
-                href="https://www.facebook.com/sidorovich.anastasiya/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i className="fab fa-facebook-f"></i>
-              </a>
-            </li>
+
             <li className="list-inline-item">
               <a
                 href="https://www.linkedin.com/in/anastasiya-sidarovich/"
@@ -36,7 +28,13 @@ const Footer = () => {
               </a>
             </li>
           </ul>
-
+          <a
+            href="https://rs.school/js/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div className="rs-school"></div>
+          </a>
           <ul className="list-inline social-buttons">
             <li className="list-inline-item">
               <a href="#">
@@ -48,6 +46,7 @@ const Footer = () => {
                 <i className="fab fa-youtube"></i>
               </a>
             </li>
+            <li className="list-inline-item"></li>
           </ul>
         </div>
       </div>
