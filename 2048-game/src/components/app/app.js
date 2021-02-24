@@ -25,7 +25,7 @@ function App() {
     gridMargin: 16,
     gridSize: 4,
     tileSize: 105,
-    difficultyNum: 8,
+    difficultyNum: 2048,
     theme: "primary",
   };
   const themes = {
@@ -37,18 +37,14 @@ function App() {
   const [showPopup, setShowPopup] = useState(false);
   const [gridSize, setGridSize] = useState(GAME.gridSize);
   const [tileSize, setTileSize] = useState(GAME.tileSize);
+  const [tiles, setTiles] = useState(() => initTiles(gridSize));
   const handle = useFullScreenHandle();
 
-  function getData() {
+  const getData = () => {
     return Array.from(new Array(gridSize), () =>
       Array.from(new Array(gridSize), () => 0)
     );
-  }
-
-  const [tiles, setTiles] = useState(() => {
-    const initialState = initTiles(gridSize);
-    return initialState;
-  });
+  };
 
   const initState = {
     tiles: initTiles(gridSize),
@@ -74,9 +70,7 @@ function App() {
     setPlayable((prevPlayable) => !prevPlayable);
   };
 
-  const onClickOptions = () => {
-    document.getElementsByClassName("game-container")[0].requestFullScreen();
-  };
+  const onClickOptions = () => {};
 
   const [data, setData] = useState(getData());
   const [theme, setTheme] = useState(GAME.theme);
@@ -101,24 +95,26 @@ function App() {
       await delay(100);
 
       setState((prevState) => {
-        const { score, tiles } = prevState;
-        const { tiles: nextTiles, score: nextScore, hasWon } = combine(
-          score,
-          tiles,
+        const { tiles, score, hasWon } = combine(
+          prevState.score,
+          prevState.tiles,
           difficultyNum
         );
-        const checkForGameOver =
-          !hasWon && nextTiles.filter((tile) => tile !== 0).length === 0;
         return {
           ...prevState,
-          score: nextScore,
-          tiles: nextTiles,
+          score: score,
+          tiles: tiles,
           hasWon: hasWon,
-          gameOver: checkForGameOver,
         };
       });
 
       setState((prevState) => {
+        if (prevState.tiles.length === gridSize * gridSize) {
+          return {
+            ...prevState,
+            gameOver: true,
+          };
+        }
         return {
           ...prevState,
           tiles: createNewTiles(prevState.tiles, gridSize),
@@ -129,17 +125,13 @@ function App() {
 
   useEffect(() => {
     const { score } = state;
-    if (score > bestScore) {
+    if (!playable && score > bestScore) {
       setBestScore(score);
     }
   }, [state.score]);
 
   useEffect(() => {
-    const { gameOver, hasWon } = state;
-    if (gameOver) {
-      setPlayable(false);
-      setShowPopup(true);
-    }
+    const { hasWon } = state;
     if (hasWon) {
       setPlayable(false);
       setShowPopup(true);
@@ -147,6 +139,16 @@ function App() {
       onHidePopup();
     }
   }, [state.hasWon]);
+
+  useEffect(() => {
+    const { gameOver } = state;
+    if (gameOver) {
+      setPlayable(false);
+      setShowPopup(true);
+    } else {
+      onHidePopup();
+    }
+  }, [state.gameOver]);
 
   useEffect(() => {
     setTileSize(getTileSize(GAME.gridWidth, GAME.gridMargin, gridSize));
@@ -171,10 +173,6 @@ function App() {
 
   useEvent("keydown", handleKeyDown);
 
-  const checkForWin = () => {
-    //state.tiles.map(function(x) {return x.id; })
-  };
-
   return (
     <ThemeSwitcherProvider defaultTheme="primary" themeMap={themes}>
       <div className={`app mr-auto ml-auto ${theme}`}>
@@ -191,7 +189,6 @@ function App() {
           <div
             className={`game-container wrapper bg-primary text-uppercase mb-5`}
           >
-            {" "}
             <button
               type="button"
               class="btn fullscreen-btn btn-primary"
