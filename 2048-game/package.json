@@ -51,6 +51,7 @@
     "prettier": "^2.2.1",
     "prop-types": "^15.7.2",
     "react-css-theme-switcher": "^0.2.2",
+    "react-full-screen": "^1.0.1",
     "styled-components": "^5.2.1"
   }
 }
