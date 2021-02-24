@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import "./game-heading.css";
 
 const GameHeading = ({
@@ -7,6 +7,7 @@ const GameHeading = ({
   bestScore,
   onClickNewGame,
   onClickAutoPlay,
+  onClickOptions,
   playable,
 }) => {
   const autoPlayBtnName = playable ? "Stop" : "Autoplay";
@@ -62,4 +63,3 @@ GameHeading.propTypes = {
   score: PropTypes.number,
   bestScore: PropTypes.number,
 };
-

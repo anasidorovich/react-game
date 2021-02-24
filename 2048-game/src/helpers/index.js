@@ -1,5 +1,5 @@
 import { initTiles, createNewTiles } from "./initTiles";
 import { move, directions, combine } from "./move";
-import injectStyle from "./injectStyle";
+import getTileSize from "./getTileSize";
 
-export { initTiles, createNewTiles, move, directions, combine, injectStyle };
+export { initTiles, createNewTiles, move, directions, combine, getTileSize };

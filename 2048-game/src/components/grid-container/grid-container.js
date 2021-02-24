@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import "./grid-container.css";
 
@@ -23,6 +23,6 @@ GridContainer.propTypes = {
 };
 
 const GridCell = styled.div`
-  width: ${({ size }) => (500-16*(size+1))/size}px;
-  height: ${({ size }) => (500-16*(size+1))/size}px;
-`
+  width: ${({ size }) => size}px;
+  height: ${({ size }) => size}px;
+`;

@@ -31,10 +31,10 @@ const GridItemContainer = ({ items, size }) => {
 };
 
 const Tile = styled.div`
-  width: ${({ size }) => (500-16*(size+1))/size}px;
-  height: ${({ size }) => (500-16*(size+1))/size}px;
-  left: ${({ col, size }) => col * (((500-16*(size+1))/size) + 16)}px;
-  top: ${({ row, size }) => row * (((500-16*(size+1))/size) + 16)}px;
+  width: ${({ size }) => size}px;
+  height: ${({ size }) => size}px;
+  left: ${({ col, size }) => col * (size + 16)}px;
+  top: ${({ row, size }) => row * (size + 16)}px;
   transition-property: transform;
   transition: 100ms ease-in-out;
 `;
