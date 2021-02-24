@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 import "./grid-item-container.css";
 
-const GridItemContainer = ({ items }) => {
+const GridItemContainer = ({ items, size }) => {
   const TileView = ({ tile, id }) => {
     const classArray = ["tile"];
     classArray.push(`data-id=${id} tile-${tile.value}`);
@@ -15,11 +16,11 @@ const GridItemContainer = ({ items }) => {
     }
     const classes = classArray.join(" ");
     return (
-      <div className={classes}>
+      <Tile {...tile} size={size} className={classes}>
         <div className="tile-inner">
           <span>{tile.value}</span>
         </div>
-      </div>
+      </Tile>
     );
   };
 
@@ -28,6 +29,15 @@ const GridItemContainer = ({ items }) => {
   ));
   return <div className="tile-container">{tiles}</div>;
 };
+
+const Tile = styled.div`
+  width: ${({ size }) => (500-16*(size+1))/size}px;
+  height: ${({ size }) => (500-16*(size+1))/size}px;
+  left: ${({ col, size }) => col * (((500-16*(size+1))/size) + 16)}px;
+  top: ${({ row, size }) => row * (((500-16*(size+1))/size) + 16)}px;
+  transition-property: transform;
+  transition: 100ms ease-in-out;
+`;
 
 export default GridItemContainer;
 

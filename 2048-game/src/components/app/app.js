@@ -163,8 +163,8 @@ function App() {
         <div
           className={`game-container wrapper bg-primary text-uppercase mb-5`}
         >
-          <GridContainer data={data} />
-          <GridItemContainer items={state.tiles} />
+          <GridContainer data={data} size={gridSize} />
+          <GridItemContainer items={state.tiles} size={gridSize}/>
         </div>
         {showPopup && (
           <WinPopup theme={theme} show={showPopup} onHide={onHidePopup} />
