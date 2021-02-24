@@ -15,17 +15,27 @@ import {
   move,
   directions,
   combine,
+  getTileSize,
 } from "../../helpers";
 
 function App() {
+  const GAME = {
+    gridWidth: 500,
+    gridMargin: 16,
+    gridSize: 4,
+    tileSize: 105,
+    difficultyNum: 2048,
+    theme: "primary",
+  };
   const themes = {
     primary: "https://bootswatch.com/4/pulse/bootstrap.min.css",
     dark: "https://bootswatch.com/4/lux/bootstrap.min.css",
   };
 
-  const [difficultyNum, setDifficultyNum] = useState(8);
+  const [difficultyNum, setDifficultyNum] = useState(GAME.difficultyNum);
   const [showPopup, setShowPopup] = useState(false);
-  const [gridSize, setGridSize] = useState(4);
+  const [gridSize, setGridSize] = useState(GAME.gridSize);
+  const [tileSize, setTileSize] = useState(GAME.tileSize);
 
   function getData() {
     return Array.from(new Array(gridSize), () =>
@@ -62,22 +72,24 @@ function App() {
     setPlayable((prevPlayable) => !prevPlayable);
   };
 
-  const onClickOptions = () => {};
+  const onClickOptions = () => {
+    document.getElementsByClassName("game-container")[0].requestFullScreen();
+  };
 
   const [data, setData] = useState(getData());
-  const [theme, setTheme] = useState("primary");
+  const [theme, setTheme] = useState(GAME.theme);
   const [playable, setPlayable] = useState(false);
 
   const onChangeTheme = (theme) => {
-    if (theme === "Cats") {
-      setTheme("dark");
-    } else {
-      setTheme("primary");
-    }
+    setTheme(theme === "Cats" ? "dark" : "primary");
   };
 
   const handleKeyDown = async (event) => {
-    if (!state.gameOver && Object.values(directions).includes(event.key)) {
+    if (
+      !state.hasWon &&
+      !state.gameOver &&
+      Object.values(directions).includes(event.key)
+    ) {
       setState((prevState) => {
         return {
           ...prevState,
@@ -89,12 +101,15 @@ function App() {
       setState((prevState) => {
         const { score, tiles } = prevState;
         const nextState = combine(score, tiles, difficultyNum);
-
+        const checkForGameOver =
+          !nextState.hasWon &&
+          nextState.tiles.filter((tile) => tile !== 0).length === 0;
         return {
           ...prevState,
           score: nextState.score,
           tiles: nextState.tiles,
           hasWon: nextState.hasWon,
+          gameOver: checkForGameOver,
         };
       });
 
@@ -115,8 +130,13 @@ function App() {
   }, [state.score]);
 
   useEffect(() => {
-    const { hasWon } = state;
+    const { gameOver, hasWon } = state;
+    if (gameOver) {
+      setPlayable(false);
+      setShowPopup(true);
+    }
     if (hasWon) {
+      setPlayable(false);
       setShowPopup(true);
     } else {
       onHidePopup();
@@ -124,6 +144,7 @@ function App() {
   }, [state.hasWon]);
 
   useEffect(() => {
+    setTileSize(getTileSize(GAME.gridWidth, GAME.gridMargin, gridSize));
     setData(getData());
     setState(initState);
   }, [gridSize]);
@@ -158,13 +179,14 @@ function App() {
           bestScore={bestScore}
           onClickNewGame={onClickNewGame}
           onClickAutoPlay={onClickAutoPlay}
+          onClickOptions={onClickOptions}
           playable={playable}
         />
         <div
           className={`game-container wrapper bg-primary text-uppercase mb-5`}
         >
-          <GridContainer data={data} size={gridSize} />
-          <GridItemContainer items={state.tiles} size={gridSize}/>
+          <GridContainer data={data} size={tileSize} />
+          <GridItemContainer items={state.tiles} size={tileSize} />
         </div>
         {showPopup && (
           <WinPopup theme={theme} show={showPopup} onHide={onHidePopup} />
