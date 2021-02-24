@@ -7,6 +7,8 @@ import GameHeading from "../game-heading";
 import GridContainer from "../grid-container";
 import GridItemContainer from "../grid-item-container";
 import { ThemeSwitcherProvider } from "react-css-theme-switcher";
+import GameOver from "./gameOver";
+import WinPopup from "./winPopup";
 import {
   initTiles,
   createNewTiles,
@@ -21,10 +23,16 @@ function App() {
     dark: "https://bootswatch.com/4/lux/bootstrap.min.css",
   };
 
+  const [difficultyNum, setDifficultyNum] = useState(8);
+  const [showPopup, setShowPopup] = useState(false);
   const [gridSize, setGridSize] = useState(4);
-  const initialData = Array.from(new Array(gridSize), () =>
-    Array.from(new Array(gridSize), () => 0)
-  );
+
+  function getData() {
+    return Array.from(new Array(gridSize), () =>
+      Array.from(new Array(gridSize), () => 0)
+    );
+  }
+
   const [tiles, setTiles] = useState(() => {
     const initialState = initTiles(gridSize);
     return initialState;
@@ -33,21 +41,30 @@ function App() {
   const initState = {
     tiles: initTiles(gridSize),
     score: 0,
+    gameOver: false,
+    hasWon: false,
   };
+
   const [state, setState] = useState(initState);
   const [bestScore, setBestScore] = useState(0);
 
+  const onHidePopup = () => setShowPopup(false);
+
   const onClickNewGame = () => {
-    setTiles(initTiles(gridSize));
-    setScore(0);
     setState(initState);
+  };
+
+  const onChangeGridSize = (event) => {
+    setGridSize(parseInt(event.target.value, 10));
   };
 
   const onClickAutoPlay = () => {
     setPlayable((prevPlayable) => !prevPlayable);
   };
 
-  const [data, setData] = useState(initialData);
+  const onClickOptions = () => {};
+
+  const [data, setData] = useState(getData());
   const [theme, setTheme] = useState("primary");
   const [playable, setPlayable] = useState(false);
 
@@ -60,32 +77,34 @@ function App() {
   };
 
   const handleKeyDown = async (event) => {
-    if (Object.values(directions).includes(event.key)) {
+    if (!state.gameOver && Object.values(directions).includes(event.key)) {
       setState((prevState) => {
-        console.log(prevState);
         return {
           ...prevState,
           tiles: move(prevState.tiles, event.key, gridSize),
         };
       });
+      await delay(100);
+
+      setState((prevState) => {
+        const { score, tiles } = prevState;
+        const nextState = combine(score, tiles, difficultyNum);
+
+        return {
+          ...prevState,
+          score: nextState.score,
+          tiles: nextState.tiles,
+          hasWon: nextState.hasWon,
+        };
+      });
+
+      setState((prevState) => {
+        return {
+          ...prevState,
+          tiles: createNewTiles(prevState.tiles, gridSize),
+        };
+      });
     }
-    await delay(100);
-
-    setState((prevState) => {
-      const nextState = combine(prevState.score, prevState.tiles);
-      return {
-        score: nextState.score,
-        tiles: nextState.tiles,
-      };
-    });
-
-    setState((prevState) => {
-      const nextState = combine(prevState.score, prevState.tiles);
-      return {
-        ...prevState,
-        tiles: createNewTiles(prevState.tiles, gridSize),
-      };
-    });
   };
 
   useEffect(() => {
@@ -94,6 +113,20 @@ function App() {
       setBestScore(score);
     }
   }, [state.score]);
+
+  useEffect(() => {
+    const { hasWon } = state;
+    if (hasWon) {
+      setShowPopup(true);
+    } else {
+      onHidePopup();
+    }
+  }, [state.hasWon]);
+
+  useEffect(() => {
+    setData(getData());
+    setState(initState);
+  }, [gridSize]);
 
   useEffect(() => {
     let interval;
@@ -112,10 +145,14 @@ function App() {
 
   useEvent("keydown", handleKeyDown);
 
+  const checkForWin = () => {
+    //state.tiles.map(function(x) {return x.id; })
+  };
+
   return (
     <ThemeSwitcherProvider defaultTheme="primary" themeMap={themes}>
       <div className={`app mr-auto ml-auto ${theme}`}>
-        <Header onChangeTheme={onChangeTheme} />
+        <Header onChangeTheme={onChangeTheme} onSizeSelect={onChangeGridSize} />
         <GameHeading
           score={state.score}
           bestScore={bestScore}
@@ -129,6 +166,9 @@ function App() {
           <GridContainer data={data} />
           <GridItemContainer items={state.tiles} />
         </div>
+        {showPopup && (
+          <WinPopup theme={theme} show={showPopup} onHide={onHidePopup} />
+        )}
         <Footer />
       </div>
     </ThemeSwitcherProvider>

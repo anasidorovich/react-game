@@ -1,9 +1,9 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { useThemeSwitcher } from "react-css-theme-switcher";
 import "./header.css";
 
-const Header = ({ onChangeTheme }) => {
+const Header = ({ gridSize, onChangeTheme, onSizeSelect }) => {
   const themes = ["Unicorns", "Cats"];
   const defaultBgColor = "linear-gradient(to bottom, #a741ff 0%, #5480fd 100%)";
   const { switcher, themes: th } = useThemeSwitcher();
@@ -22,7 +22,9 @@ const Header = ({ onChangeTheme }) => {
 
   return (
     <header className="app-header bg-primary mb-4 mb-1">
-      <nav className={`container navbar navbar-expand-lg navbar-dark bg-primary`}>
+      <nav
+        className={`container navbar navbar-expand-lg navbar-dark bg-primary`}
+      >
         <div className="navbar-brand" href="#">
           2048
         </div>
@@ -67,6 +69,18 @@ const Header = ({ onChangeTheme }) => {
                 ))}
               </ul>
             </li>
+            <li>
+              <select
+                defaultValue={gridSize}
+                className="form-select"
+                aria-label="Default select example"
+                onChange={onSizeSelect}
+              >
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
+            </li>
           </ul>
         </div>
       </nav>
@@ -77,5 +91,5 @@ const Header = ({ onChangeTheme }) => {
 export default Header;
 
 Header.propTypes = {
- onChangeTheme: PropTypes.func
-}
+  onChangeTheme: PropTypes.func,
+};

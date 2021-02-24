@@ -117,7 +117,8 @@ function rotateTo(gridItems, direction) {
   }
 }
 
-function combine(score, tiles) {
+function combine(score, tiles, difficultyNum) {
+  let hasWon = false;
   const filteredTiles = tiles
     .filter((tile) => tile.state !== tileStates.DYING)
     .map((tile) => {
@@ -125,6 +126,7 @@ function combine(score, tiles) {
         tile.value *= 2;
         score += tile.value;
         tile.merged = true;
+        hasWon = tile.value === difficultyNum;
       }
 
       tile.state = tileStates.IDLE;
@@ -132,6 +134,6 @@ function combine(score, tiles) {
       return tile;
     });
 
-  return { tiles: filteredTiles, score: score };
+  return { tiles: filteredTiles, score: score, hasWon: hasWon };
 }
 export { move, directions, combine };

@@ -49,7 +49,8 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "matrix-rotate": "0.0.2",
     "prettier": "^2.2.1",
+    "prop-types": "^15.7.2",
     "react-css-theme-switcher": "^0.2.2",
-    "prop-types": "^15.7.2"
+    "styled-components": "^5.2.1"
   }
 }
