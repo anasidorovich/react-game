@@ -78,10 +78,6 @@ body {
   text-align: center;
 }
 
-.fullscreen-enabled .game-container:hover .fullscreen-btn {
-  display: none;
-}
-
 .game-container .fullscreen-btn {
   display: none;
   position: absolute;

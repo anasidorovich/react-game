@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import toggleFullscreen, { isFullscreen } from 'toggle-fullscreen';
 import "./app.css";
 import { useEvent } from "../../hooks";
 import Header from "../header";
@@ -29,6 +29,11 @@ function App() {
     theme: "primary",
   };
 
+  const FULLSCREEN = {
+    activeClassName: "fullscreen-enabled",
+    element: document.querySelector(".fullscreen"),
+  }
+
   const themes = {
     primary: "https://bootswatch.com/4/pulse/bootstrap.min.css",
     dark: "https://bootswatch.com/4/lux/bootstrap.min.css",
@@ -39,7 +44,6 @@ function App() {
   const [gridSize, setGridSize] = useState(GAME.gridSize);
   const [tileSize, setTileSize] = useState(GAME.tileSize);
   const [tiles, setTiles] = useState(() => initTiles(gridSize));
-  const handle = useFullScreenHandle();
 
   const getData = () => {
     return Array.from(new Array(gridSize), () =>
@@ -72,6 +76,17 @@ function App() {
   };
 
   const onClickOptions = () => {};
+
+  const onFullScreenChange = () => {
+    toggleFullscreen(FULLSCREEN.element, () => {
+      const isFullScreen = isFullscreen();
+      if (isFullScreen) {
+        FULLSCREEN.element.classList.add(FULLSCREEN.activeClassName);
+      } else {
+        FULLSCREEN.element.classList.remove(FULLSCREEN.activeClassName);
+      }
+    });
+  }
 
   const [data, setData] = useState(getData());
   const [theme, setTheme] = useState(GAME.theme);
@@ -186,12 +201,12 @@ function App() {
           onClickOptions={onClickOptions}
           playable={playable}
         />
-        <FullScreen handle={handle} className="mb-5">
-          <div className={`game-container wrapper bg-primary text-uppercase`}>
+          <div className="fullscreen">
+          <div className={`game-container wrapper bg-primary text-uppercase mb-5`}>
             <button
               type="button"
               className="btn fullscreen-btn btn-primary"
-              onClick={handle.enter}
+              onClick={onFullScreenChange}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -207,7 +222,7 @@ function App() {
             <GridContainer data={data} size={tileSize} />
             <GridItemContainer items={state.tiles} size={tileSize} />
           </div>
-        </FullScreen>
+        </div>
         {showPopup && (
           <WinPopup theme={theme} show={showPopup} onHide={onHidePopup} />
         )}
