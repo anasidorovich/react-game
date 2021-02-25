@@ -12,7 +12,7 @@ const GameHeading = ({
 }) => {
   const autoPlayBtnName = playable ? "Stop" : "Autoplay";
   return (
-    <div className="game-heading container pl-lg-0 pr-lg-0 d-flex">
+    <div className="game-heading pl-lg-0 pr-lg-0 d-flex">
       <div className="play d-flex">
         <button
           type="button"

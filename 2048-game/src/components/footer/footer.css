@@ -38,6 +38,12 @@ ul.social-buttons li a {
   border: 1px solid;
 }
 
+footer {
+  height: 177px;
+  width: 100%;
+  text-align: center;
+}
+
 .rs-school {
   background-image: url("../../assets/rs_school_js.svg");
   height: 40px;

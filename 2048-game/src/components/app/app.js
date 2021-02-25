@@ -8,7 +8,7 @@ import GameHeading from "../game-heading";
 import GridContainer from "../grid-container";
 import GridItemContainer from "../grid-item-container";
 import { ThemeSwitcherProvider } from "react-css-theme-switcher";
-import GameOver from "./gameOver";
+import styled from "styled-components";
 import WinPopup from "./winPopup";
 import {
   initTiles,
@@ -21,13 +21,14 @@ import {
 
 function App() {
   const GAME = {
-    gridWidth: 500,
+    gridWidth: window.innerWidth > 520 ? 500 : 450,
     gridMargin: 16,
     gridSize: 4,
-    tileSize: 105,
+    tileSize: window.innerWidth > 520 ? 105 : 92.5,
     difficultyNum: 2048,
     theme: "primary",
   };
+
   const themes = {
     primary: "https://bootswatch.com/4/pulse/bootstrap.min.css",
     dark: "https://bootswatch.com/4/lux/bootstrap.min.css",
@@ -185,13 +186,11 @@ function App() {
           onClickOptions={onClickOptions}
           playable={playable}
         />
-        <FullScreen handle={handle}>
-          <div
-            className={`game-container wrapper bg-primary text-uppercase mb-5`}
-          >
+        <FullScreen handle={handle} className="mb-5">
+          <div className={`game-container wrapper bg-primary text-uppercase`}>
             <button
               type="button"
-              class="btn fullscreen-btn btn-primary"
+              className="btn fullscreen-btn btn-primary"
               onClick={handle.enter}
             >
               <svg
@@ -199,7 +198,7 @@ function App() {
                 width="16"
                 height="16"
                 fill="currentColor"
-                class="bi bi-fullscreen"
+                className="bi bi-fullscreen"
                 viewBox="0 0 16 16"
               >
                 <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1h-4zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zM.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5z"></path>
@@ -212,8 +211,8 @@ function App() {
         {showPopup && (
           <WinPopup theme={theme} show={showPopup} onHide={onHidePopup} />
         )}
-        <Footer />
       </div>
+      <Footer />
     </ThemeSwitcherProvider>
   );
 }
@@ -221,3 +220,16 @@ function App() {
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default App;
+
+/*
+const FullScreen = styled.div`
+  width: ${({ size }) => size}px;
+  height: ${({ size }) => size}px;
+  max-width: ${({ size }) => size}px;
+  @media (max-width: 500px) {
+      width: 450px;
+      height: 450px;
+      max-width: 450px;
+    }
+`;
+*/
