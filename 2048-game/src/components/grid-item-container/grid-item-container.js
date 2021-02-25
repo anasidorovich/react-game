@@ -35,8 +35,6 @@ const Tile = styled.div`
   height: ${({ size }) => size}px;
   left: ${({ col, size }) => col * (size + 16)}px;
   top: ${({ row, size }) => row * (size + 16)}px;
-  transition-property: transform;
-  transition: 100ms ease-in-out;
 `;
 
 export default GridItemContainer;

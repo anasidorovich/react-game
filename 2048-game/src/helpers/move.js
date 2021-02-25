@@ -17,6 +17,7 @@ const move = (initTiles, direction, size) => {
   );
 
   tiles.forEach((tile) => {
+    tile.merged = false;
     gridItems[tile.row][tile.col] = tile;
   });
 
@@ -45,7 +46,7 @@ const move = (initTiles, direction, size) => {
     .forEach((tile) => {
       tile.col = tile.mergedFrom.col;
       tile.row = tile.mergedFrom.row;
-      delete tiles.mergedFrom;
+      delete tile.mergedFrom;
     });
 
   return tiles;
@@ -68,6 +69,7 @@ function moveTile(gridItems, col, row) {
     ) {
       gridItems[nextRow][col].state = tileStates.DYING;
       gridItems[nextRow][col].mergedFrom = gridItems[currentRow][col];
+      gridItems[currentRow][col].merged = true;
       gridItems[currentRow][col].state = tileStates.INCREASE;
       gridItems[nextRow][col] = gridItems[currentRow][col];
       gridItems[currentRow][col] = 0;
@@ -125,7 +127,6 @@ function combine(score, tiles, difficultyNum) {
       if (tile.state === tileStates.INCREASE) {
         tile.value *= 2;
         score += tile.value;
-        tile.merged = true;
         hasWon = tile.value === difficultyNum;
       }
 
