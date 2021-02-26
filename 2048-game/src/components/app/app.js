@@ -15,7 +15,7 @@ import GridContainer from "../grid-container";
 import GridItemContainer from "../grid-item-container";
 import { ThemeSwitcherProvider } from "react-css-theme-switcher";
 import styled from "styled-components";
-import WinPopup from "./winPopup";
+import Popup from "./popup";
 import {
   initTiles,
   createNewTiles,
@@ -38,6 +38,18 @@ function App() {
   const FULLSCREEN = {
     activeClassName: "fullscreen-enabled",
     element: document.querySelector(".fullscreen"),
+  };
+
+  const gameOverPopup = {
+    type: "game-over",
+    title: "Game Over!",
+    message: "Try one more time!",
+  };
+
+  const winPopup = {
+    type: "win",
+    title: "You won!",
+    message: "Congrats!",
   };
 
   const themes = {
@@ -68,7 +80,7 @@ function App() {
 
   const getStorageStateName = () => {
     return `2048gamaState_${gridSize}_${difficultyNum}`;
-  }
+  };
 
   const initState = () => {
     const state = {
@@ -85,6 +97,7 @@ function App() {
     getLocalStorage(getStorageStateName()) || initState
   );
   const [bestScore, setBestScore] = useLocalStorage("2048gamaBestScore", 0);
+  const [popup, setPopup] = useState(gameOverPopup);
 
   const onHidePopup = () => setShowPopup(false);
 
@@ -190,6 +203,7 @@ function App() {
     if (hasWon) {
       setPlayable(false);
       saveTiles(state);
+      setPopup(winPopup);
       setShowPopup(true);
     } else {
       onHidePopup();
@@ -201,6 +215,7 @@ function App() {
     if (gameOver) {
       setPlayable(false);
       saveTiles(state);
+      setPopup(gameOverPopup);
       setShowPopup(true);
     } else {
       onHidePopup();
@@ -210,9 +225,7 @@ function App() {
   useEffect(() => {
     setTileSize(getTileSize(GAME.gridWidth, GAME.gridMargin, gridSize));
     setData(getData);
-    setState(
-      getLocalStorage(getStorageStateName()) || initState
-    );
+    setState(getLocalStorage(getStorageStateName()) || initState);
   }, [gridSize]);
 
   useEffect(() => {
@@ -269,7 +282,12 @@ function App() {
           </div>
         </div>
         {showPopup && (
-          <WinPopup theme={theme} show={showPopup} onHide={onHidePopup} />
+          <Popup
+            theme={theme}
+            show={showPopup}
+            onHide={onHidePopup}
+            popup={popup}
+          />
         )}
       </div>
       <Footer />
