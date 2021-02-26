@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import "./grid-item-container.css";
+import ReactDynamicFont from "react-dynamic-font";
 
 const GridItemContainer = ({ items, size }) => {
+  const style = {
+    fontSize: 50,
+    lineHeight: 60,
+    overflow: "hidden",
+    width: 65,
+  };
+
   const TileView = ({ tile, id }) => {
     const classArray = ["tile"];
     classArray.push(`data-id=${id} tile-${tile.value}`);
@@ -18,7 +26,7 @@ const GridItemContainer = ({ items, size }) => {
     return (
       <Tile {...tile} size={size} className={classes}>
         <div className="tile-inner">
-          <span>{tile.value}</span>
+          <ReactDynamicFont content={tile.value.toString()} />
         </div>
       </Tile>
     );

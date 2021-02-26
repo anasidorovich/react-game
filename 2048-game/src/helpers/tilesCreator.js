@@ -1,4 +1,4 @@
-import { uniqueId } from "lodash";
+import { nanoid } from 'nanoid';
 
 const tileStates = {
   IDLE: "IDLE",
@@ -11,7 +11,7 @@ const createTile = (row, col, value) => ({
   row,
   col,
   value,
-  id: uniqueId(),
+  id: nanoid(),
   state: tileStates.IDLE,
 });
 
