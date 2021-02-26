@@ -1,3 +1,41 @@
-export const DEFAULT_GRID_SIZE = 4;
-export const CONSTANT_NUMBER_1 = "hello I am a constant";
-export const CONSTANT_NUMBER_2 = "hello I am also a constant";
+export const GAME = {
+  gridWidth: window.innerWidth > 520 ? 500 : 450,
+  gridMargin: 16,
+  gridSize: 4,
+  tileSize: window.innerWidth > 520 ? 105 : 92.5,
+  difficultyNum: 2048,
+  theme: "primary",
+};
+
+export const FULLSCREEN = {
+  activeClassName: "fullscreen-enabled",
+  element: document.querySelector(".fullscreen"),
+};
+
+export const gameOverPopup = {
+  type: "game-over",
+  title: "Game Over!",
+  message: "Try one more time!",
+};
+
+export const winPopup = {
+  type: "win",
+  title: "You won!",
+  message: "Congrats!",
+};
+
+export const THEMES = {
+  classic: "https://bootswatch.com/4/flatly/bootstrap.min.css",
+  primary: "https://bootswatch.com/4/pulse/bootstrap.min.css",
+  dark: "https://bootswatch.com/4/lux/bootstrap.min.css",
+};
+
+  const themes = new Map();
+  themes.set("dark", "Cats");
+  themes.set("primary", "Unicorns");
+
+  const gridSizeMap = new Map();
+  gridSizeMap.set(4, "4 x 4");
+  gridSizeMap.set(5, "5 x 5");
+  gridSizeMap.set(6, "6 x 6");
+

@@ -94,8 +94,10 @@ body[data-theme="dark"] {
   vertical-align: -0.125em;
 }
 
+@media (hover: hover) {
 .game-container:hover .fullscreen-btn {
   display: block;
+}
 }
 
 .modal-body div {

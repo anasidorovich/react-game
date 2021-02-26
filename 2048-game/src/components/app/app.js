@@ -24,40 +24,15 @@ import {
   combine,
   getTileSize,
 } from "../../helpers";
+import {
+  GAME,
+  FULLSCREEN,
+  THEMES,
+  winPopup,
+  gameOverPopup,
+} from "../../constants";
 
 function App() {
-  const GAME = {
-    gridWidth: window.innerWidth > 520 ? 500 : 450,
-    gridMargin: 16,
-    gridSize: 4,
-    tileSize: window.innerWidth > 520 ? 105 : 92.5,
-    difficultyNum: 2048,
-    theme: "primary",
-  };
-
-  const FULLSCREEN = {
-    activeClassName: "fullscreen-enabled",
-    element: document.querySelector(".fullscreen"),
-  };
-
-  const gameOverPopup = {
-    type: "game-over",
-    title: "Game Over!",
-    message: "Try one more time!",
-  };
-
-  const winPopup = {
-    type: "win",
-    title: "You won!",
-    message: "Congrats!",
-  };
-
-  const themes = {
-    classic: "https://bootswatch.com/4/flatly/bootstrap.min.css",
-    primary: "https://bootswatch.com/4/pulse/bootstrap.min.css",
-    dark: "https://bootswatch.com/4/lux/bootstrap.min.css",
-  };
-
   const [difficultyNum, setDifficultyNum] = useLocalStorage(
     "2048GameLevel",
     GAME.difficultyNum
@@ -246,7 +221,7 @@ function App() {
   useEvent("keydown", handleKeyDown);
 
   return (
-    <ThemeSwitcherProvider defaultTheme={theme} themeMap={themes}>
+    <ThemeSwitcherProvider defaultTheme={theme} themeMap={THEMES}>
       <div className={`app mr-auto ml-auto ${theme}`}>
         <Header
           onChangeTheme={onChangeTheme}

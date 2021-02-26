@@ -5,8 +5,8 @@ import "./header.css";
 
 const Header = ({ gridSize, onChangeTheme, onSizeSelect }) => {
   const themes = new Map();
-  themes.set("primary", "Unicorns");
   themes.set("dark", "Cats");
+  themes.set("primary", "Unicorns");
 
   const gridSizeMap = new Map();
   gridSizeMap.set(4, "4 x 4");
