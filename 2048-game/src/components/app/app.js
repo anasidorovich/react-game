@@ -116,7 +116,7 @@ function App() {
   };
 
   const onChangeGridSize = (event) => {
-    setGridSize(parseInt(event.target.value, 10));
+    setGridSize(parseInt(event.target.id, 10));
   };
 
   const onClickAutoPlay = () => {
@@ -248,7 +248,11 @@ function App() {
   return (
     <ThemeSwitcherProvider defaultTheme={theme} themeMap={themes}>
       <div className={`app mr-auto ml-auto ${theme}`}>
-        <Header onChangeTheme={onChangeTheme} onSizeSelect={onChangeGridSize} />
+        <Header
+          onChangeTheme={onChangeTheme}
+          onSizeSelect={onChangeGridSize}
+          gridSize={gridSize}
+        />
         <GameHeading
           score={state.score}
           bestScore={bestScore}

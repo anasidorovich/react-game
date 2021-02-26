@@ -4,14 +4,25 @@ import { useThemeSwitcher } from "react-css-theme-switcher";
 import "./header.css";
 
 const Header = ({ gridSize, onChangeTheme, onSizeSelect }) => {
-  const themes = ["Unicorns", "Cats"];
+  const themes = new Map();
+  themes.set("primary", "Unicorns");
+  themes.set("dark", "Cats");
+
+  const gridSizeMap = new Map();
+  gridSizeMap.set(4, "4 x 4");
+  gridSizeMap.set(5, "5 x 5");
+  gridSizeMap.set(6, "6 x 6");
+
   const defaultBgColor = "linear-gradient(to bottom, #a741ff 0%, #5480fd 100%)";
-  const { switcher, themes: th } = useThemeSwitcher();
+  const { switcher, currentTheme } = useThemeSwitcher();
 
   const onSwitchTheme = (e) => {
-    const theme = e.target.innerHTML;
-    switcher({ theme: theme === themes[0] ? th.primary : th.dark });
-    onChangeTheme(theme);
+    const themeName = e.target.innerHTML;
+    const theme = [...themes.keys()].find(
+      (key) => themes.get(key) === themeName
+    );
+    switcher({ theme: theme });
+    onChangeTheme(themeName);
   };
 
   return (
@@ -40,7 +51,7 @@ const Header = ({ gridSize, onChangeTheme, onSizeSelect }) => {
                 About
               </a>
             </li>
-            <li className="nav-item dropdown mr-5">
+            <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
                 data-toggle="dropdown"
@@ -49,10 +60,10 @@ const Header = ({ gridSize, onChangeTheme, onSizeSelect }) => {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Theme
+                {themes.get(currentTheme)}
               </a>
               <ul className="dropdown-menu">
-                {themes.map((theme, index) => (
+                {[...themes.values()].map((theme, index) => (
                   <li
                     key={index}
                     className="dropdown-item"
@@ -63,18 +74,29 @@ const Header = ({ gridSize, onChangeTheme, onSizeSelect }) => {
                 ))}
               </ul>
             </li>
-            <li>
-              <select
-                defaultValue={gridSize}
-                value={gridSize}
-                className="form-select"
-                aria-label="Default select example"
-                onChange={onSizeSelect}
+            <li className="nav-item dropdown mr-5">
+              <a
+                className="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
               >
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-              </select>
+                {gridSizeMap.get(gridSize)}
+              </a>
+              <ul className="dropdown-menu">
+                {[...gridSizeMap.keys()].map((size, index) => (
+                  <li
+                    id={size}
+                    key={index + 500}
+                    className="dropdown-item"
+                    onClick={onSizeSelect}
+                  >
+                    {gridSizeMap.get(size)}
+                  </li>
+                ))}
+              </ul>
             </li>
           </ul>
         </div>
