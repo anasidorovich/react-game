@@ -18,7 +18,8 @@ const WinPopup = ({ theme, show, onHide }) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p></p>
+          <div></div>
+           <h4 className="text-center pt-4 pb-3">Congrats!</h4>
         </Modal.Body>
       </Modal>
     </>

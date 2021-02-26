@@ -94,3 +94,23 @@ body[data-theme="dark"] {
 .game-container:hover .fullscreen-btn {
   display: block;
 }
+
+.modal-body div {
+  margin: 0 auto;
+  background-size: cover;
+  height: 300px;
+  width: 300px;
+}
+
+.dark .modal-body div {
+  background-image: url("../../assets/unicorns/28f6c9729f5570d49376a0acc6345449.jpg");
+}
+
+.primary .modal-body div {
+  background-image: url("../../assets/unicorns/ee523b3298bd7e63eb7484f49e0aa7ae.jpg");
+}
+
+.primary .modal-body h4,
+.primary .modal-title {
+  color: #593196;
+}

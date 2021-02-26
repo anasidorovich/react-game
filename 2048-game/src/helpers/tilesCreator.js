@@ -1,4 +1,4 @@
-import { uniqueId } from "lodash";
+import { nanoid } from 'nanoid';
 
 const tileStates = {
   IDLE: "IDLE",

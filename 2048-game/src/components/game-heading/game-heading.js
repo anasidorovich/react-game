@@ -45,7 +45,7 @@ const GameHeading = ({
           </div>
         </div>
         <div className="options d-flex">
-          <button type="button" className="btn btn-info">
+          <button type="button" className="btn btn-primary">
             options
           </button>
         </div>
