@@ -1,25 +1,19 @@
 import React from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useThemeSwitcher } from "react-css-theme-switcher";
 import "./header.css";
+import { themesMap, gridSizeMap } from "../../constants";
+import { AboutPage, GamePage } from "../pages";
 
 const Header = ({ gridSize, onChangeTheme, onSizeSelect }) => {
-  const themes = new Map();
-  themes.set("dark", "Cats");
-  themes.set("primary", "Unicorns");
-
-  const gridSizeMap = new Map();
-  gridSizeMap.set(4, "4 x 4");
-  gridSizeMap.set(5, "5 x 5");
-  gridSizeMap.set(6, "6 x 6");
-
   const defaultBgColor = "linear-gradient(to bottom, #a741ff 0%, #5480fd 100%)";
   const { switcher, currentTheme } = useThemeSwitcher();
 
   const onSwitchTheme = (e) => {
     const themeName = e.target.innerHTML;
-    const theme = [...themes.keys()].find(
-      (key) => themes.get(key) === themeName
+    const theme = [...themesMap.keys()].find(
+      (key) => themesMap.get(key) === themeName
     );
     switcher({ theme: theme });
     onChangeTheme(themeName);
@@ -47,9 +41,19 @@ const Header = ({ gridSize, onChangeTheme, onSizeSelect }) => {
         <div className="collapse navbar-collapse" id="navbarColor01">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <Link className="nav-link" to="/">
+                Game
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/about">
                 About
-              </a>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/statistics">
+                Statistics
+              </Link>
             </li>
             <li className="nav-item dropdown">
               <a
@@ -60,10 +64,10 @@ const Header = ({ gridSize, onChangeTheme, onSizeSelect }) => {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                {themes.get(currentTheme)}
+                {themesMap.get(currentTheme)}
               </a>
               <ul className="dropdown-menu">
-                {[...themes.values()].map((theme, index) => (
+                {[...themesMap.values()].map((theme, index) => (
                   <li
                     key={index}
                     className="dropdown-item"

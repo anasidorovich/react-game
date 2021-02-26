@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import toggleFullscreen, { isFullscreen } from "toggle-fullscreen";
 import "./app.css";
 import { cloneDeep } from "lodash";
@@ -31,6 +32,7 @@ import {
   winPopup,
   gameOverPopup,
 } from "../../constants";
+import { AboutPage, GamePage } from "../pages";
 
 function App() {
   const [difficultyNum, setDifficultyNum] = useLocalStorage(
@@ -116,7 +118,7 @@ function App() {
   const [playable, setPlayable] = useState(false);
 
   const onChangeTheme = (theme) => {
-    setTheme(theme === "Cats" ? "dark" : "primary");
+    setTheme(theme === "Lux" ? "dark" : "primary");
   };
 
   const handleKeyDown = async (event) => {
@@ -223,52 +225,56 @@ function App() {
   return (
     <ThemeSwitcherProvider defaultTheme={theme} themeMap={THEMES}>
       <div className={`app mr-auto ml-auto ${theme}`}>
-        <Header
-          onChangeTheme={onChangeTheme}
-          onSizeSelect={onChangeGridSize}
-          gridSize={gridSize}
-        />
-        <GameHeading
-          score={state.score}
-          bestScore={bestScore}
-          onClickNewGame={onClickNewGame}
-          onClickAutoPlay={onClickAutoPlay}
-          onClickOptions={onClickOptions}
-          playable={playable}
-        />
-        <div className="fullscreen">
-          <div
-            className={`game-container wrapper bg-primary text-uppercase mb-5`}
-          >
-            <button
-              type="button"
-              className="btn fullscreen-btn btn-primary"
-              onClick={onFullScreenChange}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                className="bi bi-fullscreen"
-                viewBox="0 0 16 16"
-              >
-                <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1h-4zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zM.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5z"></path>
-              </svg>
-            </button>
-            <GridContainer data={data} size={tileSize} />
-            <GridItemContainer items={state.tiles} size={tileSize} />
-          </div>
-        </div>
-        {showPopup && (
-          <Popup
-            theme={theme}
-            show={showPopup}
-            onHide={onHidePopup}
-            popup={popup}
+        <Router>
+          <Header
+            onChangeTheme={onChangeTheme}
+            onSizeSelect={onChangeGridSize}
+            gridSize={gridSize}
           />
-        )}
+
+          <Route path="/about" component={AboutPage} exact />
+          <Route path="/" exact>
+            <GameHeading
+              score={state.score}
+              bestScore={bestScore}
+              onClickNewGame={onClickNewGame}
+              onClickAutoPlay={onClickAutoPlay}
+              onClickOptions={onClickOptions}
+              playable={playable}
+            />
+            <div className="fullscreen">
+              <div className="game-container wrapper bg-primary text-uppercase mb-5">
+                <button
+                  type="button"
+                  className="btn fullscreen-btn btn-primary"
+                  onClick={onFullScreenChange}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    className="bi bi-fullscreen"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1h-4zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zM.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5z"></path>
+                  </svg>
+                </button>
+                <GridContainer data={data} size={tileSize} />
+                <GridItemContainer items={state.tiles} size={tileSize} />
+              </div>
+            </div>
+          </Route>
+        </Router>
       </div>
+      {showPopup && (
+        <Popup
+          theme={theme}
+          show={showPopup}
+          onHide={onHidePopup}
+          popup={popup}
+        />
+      )}
       <Footer />
     </ThemeSwitcherProvider>
   );

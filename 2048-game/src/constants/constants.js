@@ -30,12 +30,11 @@ export const THEMES = {
   dark: "https://bootswatch.com/4/lux/bootstrap.min.css",
 };
 
-  const themes = new Map();
-  themes.set("dark", "Cats");
-  themes.set("primary", "Unicorns");
+export const themesMap = new Map();
+themesMap.set("dark", "Lux");
+themesMap.set("primary", "Pulse");
 
-  const gridSizeMap = new Map();
-  gridSizeMap.set(4, "4 x 4");
-  gridSizeMap.set(5, "5 x 5");
-  gridSizeMap.set(6, "6 x 6");
-
+export const gridSizeMap = new Map();
+gridSizeMap.set(4, "4 x 4");
+gridSizeMap.set(5, "5 x 5");
+gridSizeMap.set(6, "6 x 6");

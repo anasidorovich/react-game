@@ -95,9 +95,9 @@ body[data-theme="dark"] {
 }
 
 @media (hover: hover) {
-.game-container:hover .fullscreen-btn {
-  display: block;
-}
+  .game-container:hover .fullscreen-btn {
+    display: block;
+  }
 }
 
 .modal-body div {
@@ -138,4 +138,18 @@ body[data-theme="dark"] {
     margin-left: 0;
     margin-right: 0;
   }
+}
+
+.about {
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.dark .about {
+  color: #000;
+}
+
+.about a {
+  color: #efa31d;
 }

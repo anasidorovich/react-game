@@ -1,3 +1,19 @@
-import { GAME, FULLSCREEN, THEMES, winPopup, gameOverPopup } from "./constants";
+import {
+  GAME,
+  FULLSCREEN,
+  THEMES,
+  winPopup,
+  gameOverPopup,
+  themesMap,
+  gridSizeMap,
+} from "./constants";
 
-export { GAME, FULLSCREEN, THEMES, winPopup, gameOverPopup };
+export {
+  GAME,
+  FULLSCREEN,
+  THEMES,
+  winPopup,
+  gameOverPopup,
+  themesMap,
+  gridSizeMap,
+};
