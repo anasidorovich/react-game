@@ -3,10 +3,6 @@ body {
   background: linear-gradient(to bottom, #a741ff 0%, #5480fd 100%);
 }
 
-body[data-theme="classic"] {
-  background: #7b8a8b !important;
-}
-
 body[data-theme="dark"] {
   background: #fff;
 }

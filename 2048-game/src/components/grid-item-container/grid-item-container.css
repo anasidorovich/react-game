@@ -22,11 +22,6 @@
   background-size: cover;
 }
 
-.classic .tile {
-  background-image: none !important;
-  line-height: 55px;
-}
-
 .dark .tile {
   border: 1px solid white;
 }
@@ -163,29 +158,14 @@
   content: "2048" !important;
 }
 
-.classic .tile-inner span {
-  opacity: 1;
-}
-
 .tile-inner span {
-  opacity: 0;
-}
-
-.classic .tile-inner:after {
-  opacity: 0;
-}
-
-.classic .tile-inner span {
-  display: block;
-
-  color: #2c3e50;
+  display: none;
 }
 
 .tile-inner:after {
   position: absolute;
   color: #593196;
   right: 0;
-  top: 0;
   font-size: 14px;
   line-height: 1;
   padding: 5px;
@@ -231,14 +211,4 @@
   -moz-animation: pop 200ms ease 100ms;
   -webkit-animation-fill-mode: both;
   -moz-animation-fill-mode: both;
-}
-
-.text-container-with-padding {
-  position: relative;
-  width: 65px;
-  height: 65px;
-  box-sizing: border-box;
-  font-size: 50px;
-  line-height: 60px;
-  overflow: hidden;
 }

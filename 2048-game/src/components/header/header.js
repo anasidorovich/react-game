@@ -3,18 +3,14 @@ import PropTypes from "prop-types";
 import { useThemeSwitcher } from "react-css-theme-switcher";
 import "./header.css";
 
-const THEMES = new Map();
-THEMES.set("Classic", "classic");
-THEMES.set("Unicorns", "primary");
-THEMES.set("Cats", "dark");
-
 const Header = ({ gridSize, onChangeTheme, onSizeSelect }) => {
+  const themes = ["Unicorns", "Cats"];
   const defaultBgColor = "linear-gradient(to bottom, #a741ff 0%, #5480fd 100%)";
   const { switcher, themes: th } = useThemeSwitcher();
 
   const onSwitchTheme = (e) => {
     const theme = e.target.innerHTML;
-    switcher({ theme: THEMES.get(theme) });
+    switcher({ theme: theme === themes[0] ? th.primary : th.dark });
     onChangeTheme(theme);
   };
 
@@ -56,7 +52,7 @@ const Header = ({ gridSize, onChangeTheme, onSizeSelect }) => {
                 Theme
               </a>
               <ul className="dropdown-menu">
-                {[...THEMES.keys()].map((theme, index) => (
+                {themes.map((theme, index) => (
                   <li
                     key={index}
                     className="dropdown-item"

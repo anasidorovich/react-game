@@ -25,11 +25,6 @@ import {
   getTileSize,
 } from "../../helpers";
 
-  const THEMES = new Map();
-  THEMES.set("Classic", "classic");
-  THEMES.set("Unicorns", "primary");
-  THEMES.set("Cats", "dark");
-
 function App() {
   const GAME = {
     gridWidth: window.innerWidth > 520 ? 500 : 450,
@@ -133,7 +128,7 @@ function App() {
   const [playable, setPlayable] = useState(false);
 
   const onChangeTheme = (theme) => {
-    setTheme(THEMES.get(theme));
+    setTheme(theme === "Cats" ? "dark" : "primary");
   };
 
   const handleKeyDown = async (event) => {
