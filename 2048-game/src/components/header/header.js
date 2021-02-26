@@ -10,13 +10,7 @@ const Header = ({ gridSize, onChangeTheme, onSizeSelect }) => {
 
   const onSwitchTheme = (e) => {
     const theme = e.target.innerHTML;
-    if (theme === "Cats") {
-      switcher({ theme: th.dark });
-      document.body.style.background = "#fff";
-    } else {
-      switcher({ theme: th.primary });
-      document.body.style.background = defaultBgColor;
-    }
+    switcher({ theme: theme === themes[0] ? th.primary : th.dark });
     onChangeTheme(theme);
   };
 
@@ -72,6 +66,7 @@ const Header = ({ gridSize, onChangeTheme, onSizeSelect }) => {
             <li>
               <select
                 defaultValue={gridSize}
+                value={gridSize}
                 className="form-select"
                 aria-label="Default select example"
                 onChange={onSizeSelect}

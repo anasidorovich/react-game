@@ -3,19 +3,16 @@ body {
   background: linear-gradient(to bottom, #a741ff 0%, #5480fd 100%);
 }
 
+body[data-theme="dark"] {
+  background: #fff;
+}
+
 .container {
   margin: 0 auto;
   width: 500px;
   padding-left: 0px;
   padding-right: 0px;
 }
-/*
-.fullscreen {
-    margin: 10px auto;
-    width: 500px;
-    height: 500px;
-      padding: 16px;
-}*/
 
 .app {
   min-height: calc(100vh - 177px);

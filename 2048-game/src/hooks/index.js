@@ -1,4 +1,4 @@
-import useScript from "./useScript";
+import {getLocalStorage, setLocalStorage, useLocalStorage} from "./useLocalStorage";
 import useEvent from "./useEvent";
 
-export { useScript, useEvent };
+export { useEvent, getLocalStorage, setLocalStorage, useLocalStorage };

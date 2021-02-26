@@ -7,11 +7,11 @@ const tileStates = {
   INCREASE: "INCREASE",
 };
 
-const createTile = (row, col, value, id) => ({
+const createTile = (row, col, value) => ({
   row,
   col,
   value,
-  id: id ? id : uniqueId(),
+  id: uniqueId(),
   state: tileStates.IDLE,
 });
 

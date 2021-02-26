@@ -1,7 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
-import toggleFullscreen, { isFullscreen } from 'toggle-fullscreen';
+import toggleFullscreen, { isFullscreen } from "toggle-fullscreen";
 import "./app.css";
-import { useEvent } from "../../hooks";
+import { cloneDeep } from "lodash";
+import {
+  useEvent,
+  getLocalStorage,
+  useLocalStorage,
+  setLocalStorage,
+} from "../../hooks";
 import Header from "../header";
 import Footer from "../footer";
 import GameHeading from "../game-heading";
@@ -32,18 +38,27 @@ function App() {
   const FULLSCREEN = {
     activeClassName: "fullscreen-enabled",
     element: document.querySelector(".fullscreen"),
-  }
+  };
 
   const themes = {
+    classic: "https://bootswatch.com/4/flatly/bootstrap.min.css",
     primary: "https://bootswatch.com/4/pulse/bootstrap.min.css",
     dark: "https://bootswatch.com/4/lux/bootstrap.min.css",
   };
 
-  const [difficultyNum, setDifficultyNum] = useState(GAME.difficultyNum);
+  const [difficultyNum, setDifficultyNum] = useLocalStorage(
+    "2048GameLevel",
+    GAME.difficultyNum
+  );
   const [showPopup, setShowPopup] = useState(false);
-  const [gridSize, setGridSize] = useState(GAME.gridSize);
-  const [tileSize, setTileSize] = useState(GAME.tileSize);
-  const [tiles, setTiles] = useState(() => initTiles(gridSize));
+  const [gridSize, setGridSize] = useLocalStorage(
+    "2048GameSize",
+    GAME.gridSize
+  );
+  const [tileSize, setTileSize] = useLocalStorage(
+    "2048GameTileSize",
+    GAME.tileSize
+  );
 
   const getData = () => {
     return Array.from(new Array(gridSize), () =>
@@ -51,17 +66,37 @@ function App() {
     );
   };
 
-  const initState = {
-    tiles: initTiles(gridSize),
-    score: 0,
-    gameOver: false,
-    hasWon: false,
+  const getStorageStateName = () => {
+    return `2048gamaState_${gridSize}_${difficultyNum}`;
+  }
+
+  const initState = () => {
+    const state = {
+      tiles: initTiles(gridSize),
+      score: 0,
+      gameOver: false,
+      hasWon: false,
+    };
+    setLocalStorage(getStorageStateName(), state);
+    return state;
   };
 
-  const [state, setState] = useState(initState);
-  const [bestScore, setBestScore] = useState(0);
+  const [state, setState] = useState(
+    getLocalStorage(getStorageStateName()) || initState
+  );
+  const [bestScore, setBestScore] = useLocalStorage("2048gamaBestScore", 0);
 
   const onHidePopup = () => setShowPopup(false);
+
+  const saveTiles = (state) => {
+    if (!playable) {
+      const localStore = cloneDeep(state);
+      localStore.tiles.forEach((tile) => {
+        delete tile.merged;
+      });
+      setLocalStorage(getStorageStateName(), localStore);
+    }
+  };
 
   const onClickNewGame = () => {
     setState(initState);
@@ -86,10 +121,10 @@ function App() {
         FULLSCREEN.element.classList.remove(FULLSCREEN.activeClassName);
       }
     });
-  }
+  };
 
-  const [data, setData] = useState(getData());
-  const [theme, setTheme] = useState(GAME.theme);
+  const [data, setData] = useState(getData);
+  const [theme, setTheme] = useLocalStorage("2048gamaTheme", GAME.theme);
   const [playable, setPlayable] = useState(false);
 
   const onChangeTheme = (theme) => {
@@ -125,16 +160,20 @@ function App() {
       });
 
       setState((prevState) => {
+        let nextState;
         if (prevState.tiles.length === gridSize * gridSize) {
-          return {
+          nextState = {
             ...prevState,
             gameOver: true,
           };
+        } else {
+          nextState = {
+            ...prevState,
+            tiles: createNewTiles(prevState.tiles, gridSize),
+          };
         }
-        return {
-          ...prevState,
-          tiles: createNewTiles(prevState.tiles, gridSize),
-        };
+        saveTiles(nextState);
+        return nextState;
       });
     }
   };
@@ -150,6 +189,7 @@ function App() {
     const { hasWon } = state;
     if (hasWon) {
       setPlayable(false);
+      saveTiles(state);
       setShowPopup(true);
     } else {
       onHidePopup();
@@ -160,6 +200,7 @@ function App() {
     const { gameOver } = state;
     if (gameOver) {
       setPlayable(false);
+      saveTiles(state);
       setShowPopup(true);
     } else {
       onHidePopup();
@@ -168,8 +209,10 @@ function App() {
 
   useEffect(() => {
     setTileSize(getTileSize(GAME.gridWidth, GAME.gridMargin, gridSize));
-    setData(getData());
-    setState(initState);
+    setData(getData);
+    setState(
+      getLocalStorage(getStorageStateName()) || initState
+    );
   }, [gridSize]);
 
   useEffect(() => {
@@ -190,7 +233,7 @@ function App() {
   useEvent("keydown", handleKeyDown);
 
   return (
-    <ThemeSwitcherProvider defaultTheme="primary" themeMap={themes}>
+    <ThemeSwitcherProvider defaultTheme={theme} themeMap={themes}>
       <div className={`app mr-auto ml-auto ${theme}`}>
         <Header onChangeTheme={onChangeTheme} onSizeSelect={onChangeGridSize} />
         <GameHeading
@@ -201,8 +244,10 @@ function App() {
           onClickOptions={onClickOptions}
           playable={playable}
         />
-          <div className="fullscreen">
-          <div className={`game-container wrapper bg-primary text-uppercase mb-5`}>
+        <div className="fullscreen">
+          <div
+            className={`game-container wrapper bg-primary text-uppercase mb-5`}
+          >
             <button
               type="button"
               className="btn fullscreen-btn btn-primary"
@@ -235,16 +280,3 @@ function App() {
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default App;
-
-/*
-const FullScreen = styled.div`
-  width: ${({ size }) => size}px;
-  height: ${({ size }) => size}px;
-  max-width: ${({ size }) => size}px;
-  @media (max-width: 500px) {
-      width: 450px;
-      height: 450px;
-      max-width: 450px;
-    }
-`;
-*/
