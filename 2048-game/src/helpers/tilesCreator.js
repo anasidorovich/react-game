@@ -11,7 +11,7 @@ const createTile = (row, col, value) => ({
   row,
   col,
   value,
-  id: uniqueId(),
+  id: nanoid(),
   state: tileStates.IDLE,
 });
 
