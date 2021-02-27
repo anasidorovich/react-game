@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import toggleFullscreen, { isFullscreen } from "toggle-fullscreen";
 import "./app.css";
@@ -15,7 +15,6 @@ import GameHeading from "../game-heading";
 import GridContainer from "../grid-container";
 import GridItemContainer from "../grid-item-container";
 import { ThemeSwitcherProvider } from "react-css-theme-switcher";
-import styled from "styled-components";
 import Popup from "./popup";
 import {
   initTiles,
@@ -32,7 +31,7 @@ import {
   winPopup,
   gameOverPopup,
 } from "../../constants";
-import { AboutPage, GamePage } from "../pages";
+import { AboutPage, StatsPage } from "../pages";
 
 function App() {
   const [difficultyNum, setDifficultyNum] = useLocalStorage(
@@ -233,6 +232,7 @@ function App() {
           />
 
           <Route path="/about" component={AboutPage} exact />
+          <Route path="/statistics" component={StatsPage} exact />
           <Route path="/" exact>
             <GameHeading
               score={state.score}
@@ -262,6 +262,48 @@ function App() {
                 </button>
                 <GridContainer data={data} size={tileSize} />
                 <GridItemContainer items={state.tiles} size={tileSize} />
+              </div>
+
+              <div className="options-container fade wrapper bg-primary text-uppercase mb-5">
+                <div className="content-wrapper">
+                  <div className="section">
+                    <div>HD Textures</div>
+                    <input type="checkbox" id="textures" />
+                  </div>
+                  <div className="section">
+                    <label htmlFor="cammode">Camera Mode</label>
+                    <select name="cammode" id="cammode">
+                      <option value="Free">Free</option>
+                      <option value="Free">Locked</option>
+                      <option value="Free">Auto</option>
+                    </select>
+                  </div>
+                  <div className="section">
+                    <label htmlFor="resolution">Resolution</label>
+                    <select name="resolution" id="resolution">
+                      <option value="1">640 x 480</option>
+                      <option value="2">800 x 600</option>
+                      <option value="3">1024 x 720</option>
+                      <option value="4">1280 x 720</option>
+                      <option value="5">1280 x 768</option>
+                      <option value="6">1360 x 768</option>
+                      <option value="7">1366 x 768</option>
+                    </select>
+                  </div>
+                  <div className="section">
+                    <label htmlFor="screen">Full Screen</label>
+                    <input type="checkbox" id="screen" />
+                  </div>
+                  <div className="section">
+                    <label htmlFor="aliasing">Anti Aliasing</label>
+                    <select name="aliasing" id="aliasing">
+                      <option value="1">None</option>
+                      <option value="2">2x</option>
+                      <option value="3">4x</option>
+                      <option value="4">6x</option>
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
           </Route>

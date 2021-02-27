@@ -1,3 +1,5 @@
+import React from "react";
+
 const GamePage = ({ data, tileSize, onFullScreenChange, state }) => {
   return (
     <div className="fullscreen">

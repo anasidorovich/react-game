@@ -35,7 +35,7 @@ const GameHeading = ({
             className={`score d-flex flex-column bg-primary mb-2 mr-2 text-uppercase`}
           >
             score
-            <span className="">{score}</span>
+            <span>{score}</span>
           </div>
           <div
             className={`record d-flex flex-column bg-primary mb-2 text-uppercase`}
@@ -45,7 +45,11 @@ const GameHeading = ({
           </div>
         </div>
         <div className="options d-flex">
-          <button type="button" className="btn btn-primary disabled">
+          <button
+            type="button"
+            className="btn btn-primary disabled"
+            onClick={onClickOptions}
+          >
             options
           </button>
         </div>
@@ -58,6 +62,7 @@ export default GameHeading;
 
 GameHeading.propTypes = {
   onClickNewGame: PropTypes.func,
+  onClickOptions: PropTypes.func,
   onClickAutoPlay: PropTypes.func,
   playable: PropTypes.bool,
   score: PropTypes.number,

@@ -1,13 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useThemeSwitcher } from "react-css-theme-switcher";
 import "./header.css";
 import { themesMap, gridSizeMap } from "../../constants";
-import { AboutPage, GamePage } from "../pages";
 
 const Header = ({ gridSize, onChangeTheme, onSizeSelect }) => {
-  const defaultBgColor = "linear-gradient(to bottom, #a741ff 0%, #5480fd 100%)";
   const { switcher, currentTheme } = useThemeSwitcher();
 
   const onSwitchTheme = (e) => {
@@ -113,4 +111,6 @@ export default Header;
 
 Header.propTypes = {
   onChangeTheme: PropTypes.func,
+  gridSize: PropTypes.number,
+  onSizeSelect: PropTypes.func,
 };

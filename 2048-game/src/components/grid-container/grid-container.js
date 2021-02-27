@@ -20,6 +20,7 @@ export default GridContainer;
 
 GridContainer.propTypes = {
   data: PropTypes.array,
+  size: PropTypes.number,
 };
 
 const GridCell = styled.div`

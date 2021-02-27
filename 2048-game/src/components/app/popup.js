@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
+import React from "react";
 import Modal from "react-bootstrap/Modal";
+import PropTypes from "prop-types";
 
 const Popup = ({ theme, show, onHide, popup }) => {
   return (
@@ -27,3 +27,10 @@ const Popup = ({ theme, show, onHide, popup }) => {
 };
 
 export default Popup;
+
+Popup.propTypes = {
+  theme: PropTypes.string,
+  onHide: PropTypes.func,
+  show: PropTypes.bool,
+  popup: PropTypes.object,
+};
