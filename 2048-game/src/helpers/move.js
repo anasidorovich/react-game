@@ -85,16 +85,16 @@ function moveTile(gridItems, col, row) {
 function rotateFrom(gridItems, direction) {
   switch (direction) {
     case directions.LEFT:
-      matrixRotate(gridItems);
+      rotateClockwise(gridItems);
       break;
     case directions.DOWN:
-      matrixRotate(gridItems);
-      matrixRotate(gridItems);
+      rotateClockwise(gridItems);
+      rotateClockwise(gridItems);
       break;
     case directions.RIGHT:
-      matrixRotate(gridItems);
-      matrixRotate(gridItems);
-      matrixRotate(gridItems);
+      rotateClockwise(gridItems);
+      rotateClockwise(gridItems);
+      rotateClockwise(gridItems);
       break;
     default:
       break;
@@ -103,16 +103,16 @@ function rotateFrom(gridItems, direction) {
 function rotateTo(gridItems, direction) {
   switch (direction) {
     case directions.LEFT:
-      matrixRotate(gridItems);
-      matrixRotate(gridItems);
-      matrixRotate(gridItems);
+      rotateClockwise(gridItems);
+      rotateClockwise(gridItems);
+      rotateClockwise(gridItems);
       break;
     case directions.DOWN:
-      matrixRotate(gridItems);
-      matrixRotate(gridItems);
+      rotateClockwise(gridItems);
+      rotateClockwise(gridItems);
       break;
     case directions.RIGHT:
-      matrixRotate(gridItems);
+      rotateClockwise(gridItems);
       break;
     default:
       break;
@@ -127,13 +127,10 @@ function combine(score, tiles, difficultyNum) {
       if (tile.state === tileStates.INCREASE) {
         tile.value *= 2;
         score += tile.value;
-        console.log(tile);
-        console.log(difficultyNum);
         if (tile.value === difficultyNum) {
           hasWon = true;
         }
       }
-
       tile.state = tileStates.IDLE;
 
       return tile;
@@ -141,4 +138,33 @@ function combine(score, tiles, difficultyNum) {
 
   return { tiles: filteredTiles, score: score, hasWon: hasWon };
 }
+
+const rotateClockwise = (matrix) => {
+  // reverse the rows
+  matrix = matrix.reverse();
+  // swap the symmetric elements
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < i; j++) {
+      var temp = matrix[i][j];
+      matrix[i][j] = matrix[j][i];
+      matrix[j][i] = temp;
+    }
+  }
+};
+/*
+function printMatrix(matrix) {
+  let printString = '[\n'
+
+  Array.from(new Array(matrix.length), (x, i) => i).forEach(colNum => {
+    printString += '  '
+    printString += Array.from(new Array(matrix.length), (x, i) => i)
+      .map(rowNum => matrix[colNum][rowNum].row ? JSON.stringify(matrix[colNum][rowNum].row+"-"+matrix[colNum][rowNum].col):"0")
+      .join(', ')
+    printString += ',\n'
+  })
+
+  printString += ']'
+  console.log(printString)
+}*/
+
 export { move, directions, combine };

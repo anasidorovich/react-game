@@ -19,8 +19,8 @@ function createNewTiles(tiles, size) {
   let col;
   let startSize = filledItems.size;
   do {
-    row = Math.floor(Math.random() * size);
-    col = Math.floor(Math.random() * size);
+    row = Math.floor(Math.random() * (size - 0.1));
+    col = Math.floor(Math.random() * (size - 0.1));
 
     const sum = row * size + col;
     filledItems.add(sum);

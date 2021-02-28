@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSwipeable } from "react-swipeable";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import toggleFullscreen, { isFullscreen } from "toggle-fullscreen";
 import "./app.css";
@@ -104,7 +105,6 @@ function App() {
   };
 
   const onClickOptions = () => {
-    console.log("show");
     setShowOptions(true);
   };
   const onCloseOptions = () => {
@@ -133,8 +133,17 @@ function App() {
     setTheme(theme === "Lux" ? "dark" : "primary");
   };
 
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => handleKeyDown({ key: directions.LEFT }),
+    onSwipedRight: () => handleKeyDown({ key: directions.RIGHT }),
+    onSwipedUp: () => handleKeyDown({ key: directions.UP }),
+    onSwipedDown: () => handleKeyDown({ key: directions.DOWN }),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true,
+  });
+
   const handleKeyDown = async (event) => {
-    event.preventDefault();
+    event.preventDefault instanceof Function && event.preventDefault();
     if (
       !state.hasWon &&
       !state.gameOver &&
@@ -152,7 +161,7 @@ function App() {
         const { tiles, score, hasWon } = combine(
           prevState.score,
           prevState.tiles,
-          difficultyNum
+          prevState.difficultyNum
         );
         return {
           ...prevState,
@@ -196,10 +205,6 @@ function App() {
       setPopup(winPopup);
     }
   }, [state.hasWon]);
-
-  useEffect(() => {
-    console.log(popup);
-  }, [popup]);
 
   useEffect(() => {
     const { gameOver } = state;
@@ -255,7 +260,10 @@ function App() {
               playable={playable}
             />
             <div className="fullscreen">
-              <div className="game-container wrapper bg-primary text-uppercase mt-3 mb-5">
+              <div
+                {...swipeHandlers}
+                className="game-container wrapper bg-primary text-uppercase mt-3 mb-5"
+              >
                 <button
                   type="button"
                   className="btn fullscreen-btn btn-primary"
