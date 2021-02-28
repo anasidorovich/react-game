@@ -39,7 +39,14 @@
 .play .btn {
   min-width: 81.5px;
 }
+.content-wrapper {
+  margin: 2rem;
+}
 
+.options-container {
+  z-index: 777;
+  border-radius: 0px;
+}
 .options.container {
   position: absolute;
   top: 50%;
@@ -51,61 +58,53 @@
   box-shadow: 0 30px 20px -20px rgba(0, 0, 0, 0.3);
   box-sizing: border-box;
 }
-.options .header {
+.options-container .header {
   width: 100%;
   height: 3rem;
   padding-left: 2rem;
-  background: linear-gradient(45deg, #ff512f, #dd2476);
+
   background-size: 300% 300%;
   color: #fff;
   clear: both;
   box-sizing: border-box;
   -webkit-animation: coolgrad 6s ease infinite;
   animation: coolgrad 6s ease infinite;
+  border-radius: 6px 6px 0 0;
 }
-.options .header .fa {
-  font-size: 1.4rem;
-  height: 3rem;
-  line-height: 3rem;
-  float: left;
-  -webkit-animation: spin 4s ease infinite;
-  animation: spin 4s ease infinite;
+.options-container .fa {
+  font-size: 1.5rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  margin-right: 0.6rem;
 }
-.options .header .title {
+
+.options-container .close {
+  line-height: 2rem;
+  font-size: 2.5rem;
+}
+
+.options-container .close:hover {
+  color: inherit;
+}
+
+.options-container .custom-control-label::before {
+  border: 1px solid rgb(173, 181, 189);
+}
+/*
+.options-container .header .title {
   position: relative;
   height: 3rem;
   line-height: 3rem;
-  font-weight: bold;
   float: right;
   padding: 0 2rem 0 1rem;
-  background: rgba(17, 17, 17, 0.35);
 }
-.options .header .title:after {
-  content: "";
-  position: absolute;
-  right: 100%;
-  width: 0;
-  height: 0;
-  border-left: 1rem solid transparent;
-  border-bottom: 3rem solid rgba(17, 17, 17, 0.2);
-}
-.options .header .title:before {
-  content: "";
-  position: absolute;
-  right: 100%;
-  width: 0;
-  height: 0;
-  border-left: 1rem solid transparent;
-  border-bottom: 3rem solid rgba(25, 25, 25, 0.2);
-  border-right: 2rem solid rgba(25, 25, 25, 0.2);
-}
+
 .content-wrapper {
   width: 50%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  top: calc(50%+4rem);
 }
 .content-wrapper .section {
   position: relative;
@@ -138,6 +137,10 @@
   padding: 0 1rem;
   border-radius: 4px;
   box-sizing: border-box;
+}*/
+
+.content-wrapper .section select {
+  width: 200px;
 }
 @-webkit-keyframes spin {
   from {

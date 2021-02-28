@@ -47,7 +47,7 @@ const GameHeading = ({
         <div className="options d-flex">
           <button
             type="button"
-            className="btn btn-primary disabled"
+            className="btn btn-warning"
             onClick={onClickOptions}
           >
             options

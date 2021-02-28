@@ -127,7 +127,11 @@ function combine(score, tiles, difficultyNum) {
       if (tile.state === tileStates.INCREASE) {
         tile.value *= 2;
         score += tile.value;
-        hasWon = tile.value === difficultyNum;
+        console.log(tile);
+        console.log(difficultyNum);
+        if (tile.value === difficultyNum) {
+          hasWon = true;
+        }
       }
 
       tile.state = tileStates.IDLE;

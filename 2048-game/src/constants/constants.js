@@ -7,6 +7,8 @@ export const GAME = {
   theme: "primary",
 };
 
+export const LEVELS = [1024, 2048, 16];
+
 export const FULLSCREEN = {
   activeClassName: "fullscreen-enabled",
   element: document.querySelector(".fullscreen"),

@@ -31,6 +31,7 @@ import {
   winPopup,
   gameOverPopup,
 } from "../../constants";
+import OptionsPopup from "./options";
 import { AboutPage, StatsPage } from "../pages";
 
 function App() {
@@ -74,8 +75,11 @@ function App() {
   );
   const [bestScore, setBestScore] = useLocalStorage("2048gamaBestScore", 0);
   const [popup, setPopup] = useState(gameOverPopup);
+  const [showOptions, setShowOptions] = useState(false);
 
-  const onHidePopup = () => setShowPopup(false);
+  const onHidePopup = () => {
+    setState(initState);
+  };
 
   const saveTiles = (state) => {
     if (!playable) {
@@ -91,15 +95,24 @@ function App() {
     setState(initState);
   };
 
-  const onChangeGridSize = (event) => {
-    setGridSize(parseInt(event.target.id, 10));
+  const onChangeGridSize = (e) => {
+    setGridSize(parseInt(e.target.value, 10));
   };
 
   const onClickAutoPlay = () => {
     setPlayable((prevPlayable) => !prevPlayable);
   };
 
-  const onClickOptions = () => {};
+  const onClickOptions = () => {
+    console.log("show");
+    setShowOptions(true);
+  };
+  const onCloseOptions = () => {
+    setShowOptions(false);
+  };
+  const onChangeLevel = (e) => {
+    setDifficultyNum(parseInt(e.target.value, 10));
+  };
 
   const onFullScreenChange = () => {
     toggleFullscreen(FULLSCREEN.element, () => {
@@ -121,6 +134,7 @@ function App() {
   };
 
   const handleKeyDown = async (event) => {
+    event.preventDefault();
     if (
       !state.hasWon &&
       !state.gameOver &&
@@ -180,11 +194,12 @@ function App() {
       setPlayable(false);
       saveTiles(state);
       setPopup(winPopup);
-      setShowPopup(true);
-    } else {
-      onHidePopup();
     }
   }, [state.hasWon]);
+
+  useEffect(() => {
+    console.log(popup);
+  }, [popup]);
 
   useEffect(() => {
     const { gameOver } = state;
@@ -192,9 +207,6 @@ function App() {
       setPlayable(false);
       saveTiles(state);
       setPopup(gameOverPopup);
-      setShowPopup(true);
-    } else {
-      onHidePopup();
     }
   }, [state.gameOver]);
 
@@ -243,7 +255,7 @@ function App() {
               playable={playable}
             />
             <div className="fullscreen">
-              <div className="game-container wrapper bg-primary text-uppercase mb-5">
+              <div className="game-container wrapper bg-primary text-uppercase mt-3 mb-5">
                 <button
                   type="button"
                   className="btn fullscreen-btn btn-primary"
@@ -263,60 +275,29 @@ function App() {
                 <GridContainer data={data} size={tileSize} />
                 <GridItemContainer items={state.tiles} size={tileSize} />
               </div>
-
-              <div className="options-container fade wrapper bg-primary text-uppercase mb-5">
-                <div className="content-wrapper">
-                  <div className="section">
-                    <div>HD Textures</div>
-                    <input type="checkbox" id="textures" />
-                  </div>
-                  <div className="section">
-                    <label htmlFor="cammode">Camera Mode</label>
-                    <select name="cammode" id="cammode">
-                      <option value="Free">Free</option>
-                      <option value="Free">Locked</option>
-                      <option value="Free">Auto</option>
-                    </select>
-                  </div>
-                  <div className="section">
-                    <label htmlFor="resolution">Resolution</label>
-                    <select name="resolution" id="resolution">
-                      <option value="1">640 x 480</option>
-                      <option value="2">800 x 600</option>
-                      <option value="3">1024 x 720</option>
-                      <option value="4">1280 x 720</option>
-                      <option value="5">1280 x 768</option>
-                      <option value="6">1360 x 768</option>
-                      <option value="7">1366 x 768</option>
-                    </select>
-                  </div>
-                  <div className="section">
-                    <label htmlFor="screen">Full Screen</label>
-                    <input type="checkbox" id="screen" />
-                  </div>
-                  <div className="section">
-                    <label htmlFor="aliasing">Anti Aliasing</label>
-                    <select name="aliasing" id="aliasing">
-                      <option value="1">None</option>
-                      <option value="2">2x</option>
-                      <option value="3">4x</option>
-                      <option value="4">6x</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
+              {showOptions && (
+                <OptionsPopup
+                  show={showOptions}
+                  onClickClose={onCloseOptions}
+                  gridSize={gridSize}
+                  onChangeGridSize={onChangeGridSize}
+                  difficultyNum={difficultyNum}
+                  onChangeLevel={onChangeLevel}
+                />
+              )}
+              {(state.hasWon || state.gameOver) && (
+                <Popup
+                  theme={theme}
+                  show={true}
+                  onHide={onHidePopup}
+                  popup={popup}
+                />
+              )}
             </div>
           </Route>
         </Router>
       </div>
-      {showPopup && (
-        <Popup
-          theme={theme}
-          show={showPopup}
-          onHide={onHidePopup}
-          popup={popup}
-        />
-      )}
+
       <Footer />
     </ThemeSwitcherProvider>
   );

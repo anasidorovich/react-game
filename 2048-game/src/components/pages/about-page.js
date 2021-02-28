@@ -17,7 +17,7 @@ const AboutPage = () => {
       <p>
         Use your <span className="font-weight-bold">arrow keys</span> to move
         the tiles. When two tiles with the same number touch, they{" "}
-        <strong>merge into one!</strong>
+        <span className="font-weight-bold">merge into one!</span>
       </p>
 
       <h4 className="section-title">2048 Game Variations</h4>

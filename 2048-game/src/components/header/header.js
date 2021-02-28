@@ -76,30 +76,6 @@ const Header = ({ gridSize, onChangeTheme, onSizeSelect }) => {
                 ))}
               </ul>
             </li>
-            <li className="nav-item dropdown mr-5">
-              <a
-                className="nav-link dropdown-toggle"
-                data-toggle="dropdown"
-                href="#"
-                role="button"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                {gridSizeMap.get(gridSize)}
-              </a>
-              <ul className="dropdown-menu">
-                {[...gridSizeMap.keys()].map((size, index) => (
-                  <li
-                    id={size}
-                    key={index + 500}
-                    className="dropdown-item"
-                    onClick={onSizeSelect}
-                  >
-                    {gridSizeMap.get(size)}
-                  </li>
-                ))}
-              </ul>
-            </li>
           </ul>
         </div>
       </nav>
