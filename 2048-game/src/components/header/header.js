@@ -44,13 +44,13 @@ const Header = ({ gridSize, onChangeTheme, onSizeSelect }) => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/about">
-                About
+              <Link className="nav-link" to="/statistics">
+                Statistics
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/statistics">
-                Statistics
+              <Link className="nav-link" to="/about">
+                About
               </Link>
             </li>
             <li className="nav-item dropdown">

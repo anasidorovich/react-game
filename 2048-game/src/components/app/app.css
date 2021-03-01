@@ -41,14 +41,38 @@ body[data-theme="dark"] {
 
 .options-container {
   margin-top: -548px;
+  min-height: 500px;
 }
 
-@media (max-width: 520px) {
+@media (min-width: 481px and max-width: 520px) {
   .game-container,
+  .options-container,
   .modal {
     width: 450px;
     height: 450px;
     max-width: 450px;
+  }
+  .options-container {
+    height: auto;
+    margin-top: -498px;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-container,
+  .options-container,
+  .modal {
+    width: 300px;
+    height: 300px;
+    max-width: 300px;
+  }
+  .options-container {
+    height: auto;
+    margin-top: -348px;
+  }
+  .modal .modal-body div {
+    height: 200px;
+    width: 200px;
   }
 }
 

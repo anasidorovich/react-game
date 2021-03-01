@@ -1,5 +1,6 @@
 export const GAME = {
-  gridWidth: window.innerWidth > 520 ? 500 : 450,
+  gridWidth:
+    window.innerWidth < 520 ? 300 : window.innerWidth > 520 ? 500 : 450,
   gridMargin: 16,
   gridSize: 4,
   tileSize: window.innerWidth > 520 ? 105 : 92.5,

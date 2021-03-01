@@ -12,6 +12,19 @@
     max-width: 450px !important;
   }
 }
+
+@media (max-width: 480px) {
+  .game-heading {
+    justify-content: space-between;
+    width: 300px !important;
+    max-width: 300px !important;
+  }
+
+  .play {
+    flex-direction: column;
+  }
+}
+
 .score-container {
   color: #fff;
 }
@@ -33,11 +46,11 @@
 }
 
 .dark .play .btn {
-  min-width: 112.3px;
+  width: 120px;
 }
 
 .play .btn {
-  min-width: 81.5px;
+  width: 100px;
 }
 .content-wrapper {
   margin: 2rem;
