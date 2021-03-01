@@ -13,7 +13,7 @@ const OptionsPopup = ({
     <div
       className={`options-container ${
         show ? "" : "fade"
-      } alert-warning text-primary mb-5`}
+      } bg-warning text-primary mb-5`}
     >
       <button type="button" className="close" onClick={onClickClose}>
         &times;

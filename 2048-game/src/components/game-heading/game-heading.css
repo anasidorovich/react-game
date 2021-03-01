@@ -8,16 +8,8 @@
 @media (max-width: 520px) {
   .game-heading {
     justify-content: space-between;
-    width: 450px !important;
-    max-width: 450px !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .game-heading {
-    justify-content: space-between;
-    width: 300px !important;
-    max-width: 300px !important;
+    width: 90vw !important;
+    max-width: 90vw !important;
   }
 
   .play {
@@ -53,7 +45,7 @@
   width: 100px;
 }
 .content-wrapper {
-  margin: 2rem;
+  margin: 1rem 2rem 0 2rem;
 }
 
 .options-container {
