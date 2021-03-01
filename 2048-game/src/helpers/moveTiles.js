@@ -1,6 +1,5 @@
 import { cloneDeep } from "lodash";
-import matrixRotate from "matrix-rotate";
-import { tileStates } from "./tilesCreator";
+import { tileStates } from "./createTiles";
 
 const directions = {
   UP: "ArrowUp",
@@ -10,6 +9,7 @@ const directions = {
 };
 
 const move = (initTiles, direction, size) => {
+  let moved = false;
   const tiles = cloneDeep(initTiles);
 
   const gridItems = Array.from(new Array(size), () =>
@@ -26,7 +26,7 @@ const move = (initTiles, direction, size) => {
   for (let j = 0; j < size; j++) {
     for (let i = 0; i < size; i++) {
       if (gridItems[j][i] !== 0) {
-        moveTile(gridItems, i, j);
+        moved = moveTile(gridItems, i, j);
       }
     }
   }
@@ -49,14 +49,16 @@ const move = (initTiles, direction, size) => {
       delete tile.mergedFrom;
     });
 
-  return tiles;
+  return { moved: moved, tiles: tiles };
 };
 
 function moveTile(gridItems, col, row) {
+  let moved = false;
   let nextRow = row - 1;
   let currentRow = row;
 
   while (nextRow >= 0) {
+    moved = true;
     if (gridItems[nextRow][col] === 0) {
       gridItems[nextRow][col] = gridItems[currentRow][col];
       gridItems[currentRow][col].state = tileStates.MOVING;
@@ -75,11 +77,12 @@ function moveTile(gridItems, col, row) {
       gridItems[currentRow][col] = 0;
       currentRow = nextRow;
     } else {
+      moved = false;
       break;
     }
-
     nextRow -= 1;
   }
+  return moved;
 }
 
 function rotateFrom(gridItems, direction) {
@@ -140,9 +143,7 @@ function combine(score, tiles, difficultyNum) {
 }
 
 const rotateClockwise = (matrix) => {
-  // reverse the rows
   matrix = matrix.reverse();
-  // swap the symmetric elements
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < i; j++) {
       var temp = matrix[i][j];

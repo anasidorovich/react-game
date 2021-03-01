@@ -86,6 +86,8 @@ function App() {
     if (!playable) {
       const localStore = cloneDeep(state);
       localStore.tiles.forEach((tile) => {
+        console.log(tile);
+        //document.querySelector(`.tile-position-${tile.col + 1}-${tile.row + 1}`).classList.remove("tile-merged");
         delete tile.merged;
       });
       setLocalStorage(getStorageStateName(), localStore);
@@ -144,17 +146,21 @@ function App() {
 
   const handleKeyDown = async (event) => {
     event.preventDefault instanceof Function && event.preventDefault();
+    let haveMoved = false;
     if (
       !state.hasWon &&
       !state.gameOver &&
       Object.values(directions).includes(event.key)
     ) {
       setState((prevState) => {
+        const { moved, tiles } = move(prevState.tiles, event.key, gridSize);
+        haveMoved = moved;
         return {
           ...prevState,
-          tiles: move(prevState.tiles, event.key, gridSize),
+          tiles: tiles,
         };
       });
+
       await delay(100);
 
       setState((prevState) => {
@@ -170,7 +176,9 @@ function App() {
           hasWon: hasWon,
         };
       });
-
+      if (!haveMoved) {
+        return;
+      }
       setState((prevState) => {
         let nextState;
         if (prevState.tiles.length === gridSize * gridSize) {
