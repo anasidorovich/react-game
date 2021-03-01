@@ -7,12 +7,7 @@ export const GAME = {
   theme: "primary",
 };
 
-export const LEVELS = [1024, 2048, 16];
-
-export const FULLSCREEN = {
-  activeClassName: "fullscreen-enabled",
-  element: document.querySelector(".fullscreen"),
-};
+export const LEVELS = [16, 1024, 2048, 16];
 
 export const gameOverPopup = {
   type: "game-over",
@@ -40,3 +35,14 @@ export const gridSizeMap = new Map();
 gridSizeMap.set(4, "4 x 4");
 gridSizeMap.set(5, "5 x 5");
 gridSizeMap.set(6, "6 x 6");
+
+export const storageNames = {
+  score: "2048GameScore",
+  volume: "2048GameVolume",
+  bestScore: "2048GameBestScore",
+  theme: "2048GameTheme",
+  sound: "2048GameSound",
+  level: "2048GameLevel",
+  tileSize: "2048GameTileSize",
+  gridSize: "2048GameSize",
+};

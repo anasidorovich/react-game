@@ -58,12 +58,12 @@ function moveTile(gridItems, col, row) {
   let currentRow = row;
 
   while (nextRow >= 0) {
-    moved = true;
     if (gridItems[nextRow][col] === 0) {
       gridItems[nextRow][col] = gridItems[currentRow][col];
       gridItems[currentRow][col].state = tileStates.MOVING;
       gridItems[currentRow][col] = 0;
       currentRow = nextRow;
+      moved = true;
     } else if (
       gridItems[nextRow][col].value === gridItems[currentRow][col].value &&
       (gridItems[nextRow][col].state === tileStates.IDLE ||
@@ -76,8 +76,8 @@ function moveTile(gridItems, col, row) {
       gridItems[nextRow][col] = gridItems[currentRow][col];
       gridItems[currentRow][col] = 0;
       currentRow = nextRow;
+      moved = true;
     } else {
-      moved = false;
       break;
     }
     nextRow -= 1;
@@ -124,10 +124,12 @@ function rotateTo(gridItems, direction) {
 
 function combine(score, tiles, difficultyNum) {
   let hasWon = false;
+  let merged = false;
   const filteredTiles = tiles
     .filter((tile) => tile.state !== tileStates.DYING)
     .map((tile) => {
       if (tile.state === tileStates.INCREASE) {
+        merged = true;
         tile.value *= 2;
         score += tile.value;
         if (tile.value === difficultyNum) {
@@ -139,7 +141,7 @@ function combine(score, tiles, difficultyNum) {
       return tile;
     });
 
-  return { tiles: filteredTiles, score: score, hasWon: hasWon };
+  return { tiles: filteredTiles, score: score, hasWon: hasWon, merged: merged };
 }
 
 const rotateClockwise = (matrix) => {

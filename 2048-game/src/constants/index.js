@@ -1,21 +1,21 @@
 import {
   GAME,
-  FULLSCREEN,
   THEMES,
   LEVELS,
   winPopup,
   gameOverPopup,
   themesMap,
   gridSizeMap,
+  storageNames,
 } from "./constants";
 
 export {
   GAME,
-  FULLSCREEN,
   THEMES,
   LEVELS,
   winPopup,
   gameOverPopup,
   themesMap,
   gridSizeMap,
+  storageNames,
 };

@@ -39,11 +39,6 @@ body[data-theme="dark"] {
   box-shadow: 0px 14px 30px -9px rgb(0 0 0 / 74%);
 }
 
-.options-container {
-  margin-top: -548px;
-  min-height: 430px;
-}
-
 @media (max-width: 520px) {
   .game-container,
   .options-container,
@@ -54,7 +49,7 @@ body[data-theme="dark"] {
   }
   .options-container {
     height: auto;
-    margin-top: calc(-48px - 90vw);
+    margin-top: calc(-3rem - 90vw) !important;
   }
   .modal .modal-body div {
     height: 200px;

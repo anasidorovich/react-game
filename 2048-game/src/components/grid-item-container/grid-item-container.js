@@ -11,12 +11,14 @@ const GridItemContainer = ({ items, size }) => {
     if (tile.merged) {
       classArray.push("tile-merged");
     }
-    if (tile.isNew) {
-      classArray.push("new");
-    }
     const classes = classArray.join(" ");
     return (
-      <Tile {...tile} size={size} className={classes}>
+      <Tile
+        {...tile}
+        size={size}
+        className={classes}
+        onAnimationEnd={(e) => delete tile.merged}
+      >
         <div className="tile-inner">
           <span>{tile.value}</span>
         </div>

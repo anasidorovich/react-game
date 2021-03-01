@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSwipeable } from "react-swipeable";
+import useSound from "use-sound";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import toggleFullscreen, { isFullscreen } from "toggle-fullscreen";
 import "./app.css";
@@ -27,26 +28,31 @@ import {
 } from "../../helpers";
 import {
   GAME,
-  FULLSCREEN,
   THEMES,
   winPopup,
   gameOverPopup,
+  storageNames,
 } from "../../constants";
-import OptionsPopup from "./options";
+import OptionsPopup from "../options";
 import { AboutPage, StatsPage } from "../pages";
+import mergedSound from "../../assets/merged.mp3";
 
 function App() {
+  const FULLSCREEN = {
+    activeClassName: "fullscreen-enabled",
+    element: document.querySelector(".fullscreen"),
+  };
   const [difficultyNum, setDifficultyNum] = useLocalStorage(
-    "2048GameLevel",
+    storageNames.level,
     GAME.difficultyNum
   );
   const [showPopup, setShowPopup] = useState(false);
   const [gridSize, setGridSize] = useLocalStorage(
-    "2048GameSize",
+    storageNames.gridSize,
     GAME.gridSize
   );
   const [tileSize, setTileSize] = useLocalStorage(
-    "2048GameTileSize",
+    storageNames.tileSize,
     GAME.tileSize
   );
 
@@ -74,7 +80,7 @@ function App() {
   const [state, setState] = useState(
     getLocalStorage(getStorageStateName()) || initState
   );
-  const [bestScore, setBestScore] = useLocalStorage("2048gamaBestScore", 0);
+  const [bestScore, setBestScore] = useLocalStorage(storageNames.bestScore, 0);
   const [popup, setPopup] = useState(gameOverPopup);
   const [showOptions, setShowOptions] = useState(false);
 
@@ -86,8 +92,6 @@ function App() {
     if (!playable) {
       const localStore = cloneDeep(state);
       localStore.tiles.forEach((tile) => {
-        console.log(tile);
-        //document.querySelector(`.tile-position-${tile.col + 1}-${tile.row + 1}`).classList.remove("tile-merged");
         delete tile.merged;
       });
       setLocalStorage(getStorageStateName(), localStore);
@@ -117,6 +121,7 @@ function App() {
   };
 
   const onFullScreenChange = () => {
+    console.log(FULLSCREEN.element);
     toggleFullscreen(FULLSCREEN.element, () => {
       const isFullScreen = isFullscreen();
       if (isFullScreen) {
@@ -128,8 +133,23 @@ function App() {
   };
 
   const [data, setData] = useState(getData);
-  const [theme, setTheme] = useLocalStorage("2048gamaTheme", GAME.theme);
+  const [theme, setTheme] = useLocalStorage(storageNames.theme, GAME.theme);
   const [playable, setPlayable] = useState(false);
+  const [soundIsChecked, setSoundIsChecked] = useLocalStorage(
+    storageNames.sound,
+    false
+  );
+  const [volume, setVolume] = useLocalStorage(storageNames.volume, 0);
+
+  const onChangeSound = (e) => {
+    setSoundIsChecked(e.target.checked);
+  };
+
+  const onChangeVolume = (e) => {
+    setVolume(e.target.valueAsNumber);
+  };
+
+  const [playActive] = useSound(mergedSound, { volume: volume });
 
   const onChangeTheme = (theme) => {
     setTheme(theme === "Lux" ? "dark" : "primary");
@@ -164,11 +184,14 @@ function App() {
       await delay(100);
 
       setState((prevState) => {
-        const { tiles, score, hasWon } = combine(
+        const { tiles, score, hasWon, merged } = combine(
           prevState.score,
           prevState.tiles,
-          prevState.difficultyNum
+          difficultyNum
         );
+        if (soundIsChecked && merged) {
+          playActive();
+        }
         return {
           ...prevState,
           score: score,
@@ -255,7 +278,6 @@ function App() {
             onSizeSelect={onChangeGridSize}
             gridSize={gridSize}
           />
-
           <Route path="/about" component={AboutPage} exact />
           <Route path="/statistics" component={StatsPage} exact />
           <Route path="/" exact>
@@ -294,11 +316,15 @@ function App() {
               {showOptions && (
                 <OptionsPopup
                   show={showOptions}
+                  soundIsChecked={soundIsChecked}
                   onClickClose={onCloseOptions}
                   gridSize={gridSize}
                   onChangeGridSize={onChangeGridSize}
                   difficultyNum={difficultyNum}
                   onChangeLevel={onChangeLevel}
+                  onChangeSound={onChangeSound}
+                  volume={volume}
+                  onChangeVolume={onChangeVolume}
                 />
               )}
               {(state.hasWon || state.gameOver) && (

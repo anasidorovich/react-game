@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { LEVELS, gridSizeMap } from "../../constants";
+import "./options.css";
 const OptionsPopup = ({
   difficultyNum,
   gridSize,
@@ -8,6 +9,10 @@ const OptionsPopup = ({
   onChangeGridSize,
   onClickClose,
   onChangeLevel,
+  soundIsChecked,
+  onChangeSound,
+  volume,
+  onChangeVolume,
 }) => {
   return (
     <div
@@ -29,8 +34,8 @@ const OptionsPopup = ({
               type="checkbox"
               className="custom-control-input"
               id="check-sound"
-              checked=""
-              onChange={onChangeLevel}
+              checked={soundIsChecked}
+              onChange={onChangeSound}
             />
             <label
               className="custom-control-label"
@@ -42,7 +47,16 @@ const OptionsPopup = ({
           <h6>Music</h6>
           <fieldset className="form-group">
             <label htmlFor="customRange1"></label>
-            <input type="range" className="custom-range" id="customRange1" />
+            <input
+              type="range"
+              min={0}
+              max={1}
+              step={0.02}
+              value={volume}
+              onChange={onChangeVolume}
+              className="custom-range"
+              id="customRange1"
+            />
           </fieldset>
         </div>
         <div className="section">

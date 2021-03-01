@@ -1,0 +1,34 @@
+.options-container {
+  margin-top: calc(-3rem - 500px);
+  min-height: 430px;
+  z-index: 777;
+  border-radius: 0px;
+}
+
+.options-container .fa {
+  font-size: 1.5rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  margin-right: 0.6rem;
+}
+
+.options-container .close {
+  line-height: 2rem;
+  font-size: 2.5rem;
+}
+
+.options-container .close:hover {
+  color: inherit;
+}
+
+.options-container .custom-control-label::before {
+  border: 1px solid rgb(173, 181, 189);
+}
+
+.content-wrapper {
+  margin: 1rem 2rem 0 2rem;
+}
+
+.content-wrapper .section select {
+  width: 200px;
+}

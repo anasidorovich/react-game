@@ -55,6 +55,7 @@
     "react-swipeable": "^6.0.1",
     "reactjs-localstorage": "^1.0.1",
     "styled-components": "^5.2.1",
-    "toggle-fullscreen": "^0.4.2"
+    "toggle-fullscreen": "^0.4.2",
+    "use-sound": "^2.0.1"
   }
 }
