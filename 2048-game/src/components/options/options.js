@@ -10,9 +10,13 @@ const OptionsPopup = ({
   onClickClose,
   onChangeLevel,
   soundIsChecked,
+  musicIsChecked,
   onChangeSound,
-  volume,
-  onChangeVolume,
+  soundsVolume,
+  musicVolume,
+  onChangeMusic,
+  onChangeSoundsVolume,
+  onChangeMusicVolume,
 }) => {
   return (
     <div
@@ -44,18 +48,50 @@ const OptionsPopup = ({
           </div>
         </div>
         <div className="section">
-          <h6>Music</h6>
+          <h6>Sounds Volume</h6>
           <fieldset className="form-group">
-            <label htmlFor="customRange1"></label>
+            <label htmlFor="soundsRange"></label>
             <input
               type="range"
               min={0}
               max={1}
               step={0.02}
-              value={volume}
-              onChange={onChangeVolume}
+              value={soundsVolume}
+              onChange={onChangeSoundsVolume}
               className="custom-range"
-              id="customRange1"
+              id="soundsRange"
+            />
+          </fieldset>
+        </div>
+        <div className="section">
+          <h6>Music</h6>
+          <div className="custom-control custom-checkbox mb-3">
+            <input
+              type="checkbox"
+              className="custom-control-input"
+              id="check-music"
+              checked={musicIsChecked}
+              onChange={onChangeMusic}
+            />
+            <label
+              className="custom-control-label"
+              htmlFor="check-music"
+            ></label>
+          </div>
+        </div>
+        <div className="section">
+          <h6>Music Volume</h6>
+          <fieldset className="form-group">
+            <label htmlFor="musicVolumeRange"></label>
+            <input
+              type="range"
+              min={0}
+              max={1}
+              step={0.02}
+              value={musicVolume}
+              onChange={onChangeMusicVolume}
+              className="custom-range"
+              id="musicVolumeRange"
             />
           </fieldset>
         </div>
@@ -95,20 +131,6 @@ const OptionsPopup = ({
               ))}
             </select>
           </div>
-        </div>
-        <h6>Full Screen</h6>
-        <div className="custom-control custom-checkbox">
-          <input
-            type="checkbox"
-            className="custom-control-input"
-            id="check-fullscreen"
-            checked=""
-            onChange={onChangeLevel}
-          />
-          <label
-            className="custom-control-label "
-            htmlFor="check-fullscreen"
-          ></label>
         </div>
       </div>
     </div>

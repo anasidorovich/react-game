@@ -20,6 +20,7 @@
   -webkit-transition-property: top, left;
   -moz-transition-property: top, left;
   background-size: cover;
+  background-position: center;
 }
 
 .dark .tile {
@@ -39,7 +40,8 @@
 }
 
 .dark .tile.tile-16 {
-  background-image: url("../../assets/unicorns/8453b068e98833402242fe1014611cb2.jpg");
+  background-image: url("../../assets/unicorns/koshka-belyi-vzgliad-poza-kotenok-fon-portret-svetlyi-maly-32.jpg");
+  background-position: left;
 }
 
 .dark .tile.tile-32 {
@@ -70,6 +72,10 @@
   background-image: url("../../assets/unicorns/черные-котики12-768x918.jpg");
 }
 
+.dark .tile.tile-4096 {
+  background-image: url("../../assets/unicorns/4bdd4d8ca7ae7e19af738b7038c0c73c.jpg");
+}
+
 .tile.tile-2 {
   background-image: url("../../assets/unicorns/80a059f1b70693684f02e3d4ec6e0f34.jpg");
 }
@@ -83,11 +89,11 @@
 }
 
 .tile.tile-16 {
-  background-image: url("../../assets/unicorns/7cbdf51bb0842949226e2ab165aa3f3f.jpg");
+  background-image: url("../../assets/unicorns/rsz_7cbdf51bb0842949226e2ab165aa3f3f.jpg");
 }
 
 .tile.tile-32 {
-  background-image: url("../../assets/unicorns/0c38d4f131e2a5a7dab2ed7ee8e19ad4.jpg");
+  background-image: url("../../assets/unicorns/92ce2bcadc9e6f868c98f78ef9a8f145.jpg");
 }
 
 .tile.tile-64 {
@@ -112,6 +118,10 @@
 
 .tile.tile-2048 {
   background-image: url("../../assets/unicorns/ee523b3298bd7e63eb7484f49e0aa7ae.jpg");
+}
+
+.tile.tile-4096 {
+  background-image: url("../../assets/unicorns/rsz_6b64cdbe598d09b92a7ae3c9a8c7de693.jpg");
 }
 
 .tile.tile-2 .tile-inner:after {
@@ -156,6 +166,10 @@
 
 .tile.tile-2048 .tile-inner:after {
   content: "2048" !important;
+}
+
+.tile.tile-4096 .tile-inner:after {
+  content: "4096" !important;
 }
 
 .tile-inner span {

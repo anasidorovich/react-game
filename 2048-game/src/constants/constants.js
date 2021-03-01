@@ -7,7 +7,7 @@ export const GAME = {
   theme: "primary",
 };
 
-export const LEVELS = [16, 1024, 2048, 16];
+export const LEVELS = [32, 1024, 2048, 4096];
 
 export const gameOverPopup = {
   type: "game-over",
@@ -38,7 +38,8 @@ gridSizeMap.set(6, "6 x 6");
 
 export const storageNames = {
   score: "2048GameScore",
-  volume: "2048GameVolume",
+  soundsVolume: "2048GameSoundsVolume",
+  musicVolume: "2048GameMusicVolume",
   bestScore: "2048GameBestScore",
   theme: "2048GameTheme",
   sound: "2048GameSound",

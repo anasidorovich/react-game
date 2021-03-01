@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSwipeable } from "react-swipeable";
+import { Howl, Howler } from "howler";
 import useSound from "use-sound";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import toggleFullscreen, { isFullscreen } from "toggle-fullscreen";
@@ -36,6 +37,9 @@ import {
 import OptionsPopup from "../options";
 import { AboutPage, StatsPage } from "../pages";
 import mergedSound from "../../assets/merged.mp3";
+import winSound from "../../assets/success.mp3";
+import gameOverSound from "../../assets/game-over.mp3";
+import music from "../../assets/game-music.mp3";
 
 function App() {
   const FULLSCREEN = {
@@ -121,7 +125,6 @@ function App() {
   };
 
   const onFullScreenChange = () => {
-    console.log(FULLSCREEN.element);
     toggleFullscreen(FULLSCREEN.element, () => {
       const isFullScreen = isFullscreen();
       if (isFullScreen) {
@@ -139,17 +142,38 @@ function App() {
     storageNames.sound,
     false
   );
-  const [volume, setVolume] = useLocalStorage(storageNames.volume, 0);
-
+  const [musicIsChecked, setMusicIsChecked] = useState(false);
+  const [soundsVolume, setSoundsVolume] = useLocalStorage(
+    storageNames.soundsVolume,
+    0
+  );
+  const [musicVolume, setMusicVolume] = useLocalStorage(
+    storageNames.musicVolume,
+    0
+  );
   const onChangeSound = (e) => {
     setSoundIsChecked(e.target.checked);
   };
 
-  const onChangeVolume = (e) => {
-    setVolume(e.target.valueAsNumber);
+  const onChangeMusic = (e) => {
+    setMusicIsChecked(e.target.checked);
   };
 
-  const [playActive] = useSound(mergedSound, { volume: volume });
+  const onChangeSoundsVolume = (e) => {
+    setSoundsVolume(e.target.valueAsNumber);
+  };
+
+  const onChangeMusicVolume = (e) => {
+    setMusicVolume(e.target.valueAsNumber);
+  };
+
+  const [playMerged] = useSound(mergedSound, { volume: soundsVolume });
+  const [playGameOver] = useSound(gameOverSound, { volume: soundsVolume });
+  const [playWin] = useSound(winSound, { volume: soundsVolume });
+  const [playMusic, { stop: stopMusic, isPlaying, sound }] = useSound(music, {
+    loop: true,
+    volume: musicVolume,
+  });
 
   const onChangeTheme = (theme) => {
     setTheme(theme === "Lux" ? "dark" : "primary");
@@ -190,7 +214,7 @@ function App() {
           difficultyNum
         );
         if (soundIsChecked && merged) {
-          playActive();
+          playMerged();
         }
         return {
           ...prevState,
@@ -199,17 +223,15 @@ function App() {
           hasWon: hasWon,
         };
       });
-      if (!haveMoved) {
-        return;
-      }
+
       setState((prevState) => {
-        let nextState;
+        let nextState = prevState;
         if (prevState.tiles.length === gridSize * gridSize) {
           nextState = {
             ...prevState,
             gameOver: true,
           };
-        } else {
+        } else if (haveMoved) {
           nextState = {
             ...prevState,
             tiles: createNewTiles(prevState.tiles, gridSize),
@@ -234,6 +256,9 @@ function App() {
       setPlayable(false);
       saveTiles(state);
       setPopup(winPopup);
+      if (soundIsChecked) {
+        playWin();
+      }
     }
   }, [state.hasWon]);
 
@@ -243,6 +268,9 @@ function App() {
       setPlayable(false);
       saveTiles(state);
       setPopup(gameOverPopup);
+      if (soundIsChecked) {
+        playGameOver();
+      }
     }
   }, [state.gameOver]);
 
@@ -251,6 +279,18 @@ function App() {
     setData(getData);
     setState(getLocalStorage(getStorageStateName()) || initState);
   }, [gridSize]);
+
+  useEffect(() => {
+    if (musicIsChecked) {
+      if (!isPlaying) playMusic();
+    } else {
+      if (isPlaying) stopMusic();
+    }
+  }, [musicIsChecked]);
+
+  useEffect(() => {
+    setState(getLocalStorage(getStorageStateName()) || initState);
+  }, [difficultyNum]);
 
   useEffect(() => {
     let interval;
@@ -317,14 +357,18 @@ function App() {
                 <OptionsPopup
                   show={showOptions}
                   soundIsChecked={soundIsChecked}
+                  musicIsChecked={musicIsChecked}
                   onClickClose={onCloseOptions}
                   gridSize={gridSize}
                   onChangeGridSize={onChangeGridSize}
                   difficultyNum={difficultyNum}
                   onChangeLevel={onChangeLevel}
                   onChangeSound={onChangeSound}
-                  volume={volume}
-                  onChangeVolume={onChangeVolume}
+                  onChangeMusic={onChangeMusic}
+                  soundsVolume={soundsVolume}
+                  musicVolume={musicVolume}
+                  onChangeSoundsVolume={onChangeSoundsVolume}
+                  onChangeMusicVolume={onChangeMusicVolume}
                 />
               )}
               {(state.hasWon || state.gameOver) && (
