@@ -7,6 +7,7 @@ import {
   themesMap,
   gridSizeMap,
   storageNames,
+  hotKeys,
 } from "./constants";
 
 export {
@@ -18,4 +19,5 @@ export {
   themesMap,
   gridSizeMap,
   storageNames,
+  hotKeys,
 };

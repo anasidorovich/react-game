@@ -47,3 +47,11 @@ export const storageNames = {
   tileSize: "2048GameTileSize",
   gridSize: "2048GameSize",
 };
+
+export const hotKeys = {
+  GO_TO_ABOUT: "ctrl+a",
+  GO_TO_OPTIONS: "ctrl+o",
+  MUTE: "ctrl+m",
+  SWITCH_TU_PULSE: "ctrl+p",
+  SWITCH_TO_LUX: "ctrl+d",
+};

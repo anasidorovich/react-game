@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "bootswatch": "^4.6.0",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.0",
     "react-dom": "^17.0.1",
@@ -39,7 +40,6 @@
   },
   "devDependencies": {
     "bootstrap": "^4.6.0",
-    "bootswatch": "^4.6.0",
     "eslint": "^7.20.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^7.2.0",
@@ -48,6 +48,7 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "hotkeys-js": "^3.8.2",
     "howler": "^2.2.1",
     "nanoid": "^3.1.20",
     "prettier": "^2.2.1",

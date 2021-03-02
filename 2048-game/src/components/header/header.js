@@ -1,20 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { useThemeSwitcher } from "react-css-theme-switcher";
 import "./header.css";
 import { themesMap, gridSizeMap } from "../../constants";
 
-const Header = ({ gridSize, onChangeTheme, onSizeSelect }) => {
-  const { switcher, currentTheme } = useThemeSwitcher();
-
+const Header = ({
+  gridSize,
+  onChangeTheme,
+  onSizeSelect,
+  switcher,
+  currentTheme,
+}) => {
   const onSwitchTheme = (e) => {
     const themeName = e.target.innerHTML;
     const theme = [...themesMap.keys()].find(
       (key) => themesMap.get(key) === themeName
     );
-    switcher({ theme: theme });
-    onChangeTheme(themeName);
+    onChangeTheme(theme);
   };
 
   return (
@@ -82,7 +84,6 @@ const Header = ({ gridSize, onChangeTheme, onSizeSelect }) => {
     </header>
   );
 };
-
 export default Header;
 
 Header.propTypes = {
