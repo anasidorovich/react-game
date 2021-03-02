@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./header.css";
 import { themesMap, gridSizeMap } from "../../constants";
+import HotKeys from "./hotkeys";
 
 const Header = ({
   gridSize,
@@ -80,6 +81,7 @@ const Header = ({
             </li>
           </ul>
         </div>
+        <HotKeys />
       </nav>
     </header>
   );

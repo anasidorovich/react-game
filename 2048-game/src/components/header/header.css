@@ -7,3 +7,16 @@
 select option:hover {
   cursor: pointer;
 }
+
+.hk-info {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+#button-tooltip-1 > * {
+  background-color: #fff !important;
+  color: #000;
+  border: 1px solid #efa31d !important;
+  border-radius: 6px;
+  box-shadow: inset 0 0 2em #efa31d, 0 0 1em #efa31d;
+}
