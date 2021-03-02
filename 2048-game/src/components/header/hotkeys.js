@@ -11,9 +11,9 @@ const HotKeys = () => {
       placement="bottom"
       overlay={
         <Tooltip className="tooltip" id="button-tooltip-1">
-          <div class="text-left text-primary p-2">
-            <p class="text-center font-weight-bold">Hotkeys</p>
-            <hr class="bg-warning" />
+          <div className="text-left text-primary p-2">
+            <p className="text-center font-weight-bold">Hotkeys</p>
+            <hr className="bg-warning" />
             <p>
               <strong>CTRL + a:</strong> Go to about page.
             </p>
@@ -36,7 +36,7 @@ const HotKeys = () => {
       {({ ref, ...triggerHandler }) => (
         <button
           {...triggerHandler}
-          className="hk-info d-inline-flex align-items-center d-sm-none d-md-none d-lg-block"
+          className="hk-info d-none d-lg-inline-flex align-items-center"
         >
           <Image ref={ref} roundedCircle src={hotkeyIcon} width="30" />
         </button>
