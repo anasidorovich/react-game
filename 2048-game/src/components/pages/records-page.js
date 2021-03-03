@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
-import groupArrayThenSort from "group-array-then-sort";
 import {
   getLocalStorage,
-  setLocalStorage,
-  clearLocalStorage,
 } from "../../hooks";
 import { storageNames, statsMock } from "../../constants";
 import Spinner from "../spinner";

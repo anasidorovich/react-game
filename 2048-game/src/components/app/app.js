@@ -3,7 +3,7 @@ import { useSwipeable } from "react-swipeable";
 import { useThemeSwitcher } from "react-css-theme-switcher";
 import hotkeys from "hotkeys-js";
 import useSound from "use-sound";
-import { useHistory, BrowserRouter as Router, Route } from "react-router-dom";
+import { useHistory, Route } from "react-router-dom";
 import toggleFullscreen, { isFullscreen } from "toggle-fullscreen";
 import "./app.css";
 import { cloneDeep } from "lodash";
@@ -32,7 +32,6 @@ import {
 } from "../../helpers";
 import {
   GAME,
-  THEMES,
   winPopup,
   gameOverPopup,
   storageNames,
@@ -54,7 +53,7 @@ function App() {
     storageNames.level,
     GAME.difficultyNum
   );
-  const [showPopup, setShowPopup] = useState(false);
+
   const [gridSize, setGridSize] = useLocalStorage(
     storageNames.gridSize,
     GAME.gridSize
@@ -188,7 +187,7 @@ function App() {
   const [playMerged] = useSound(mergedSound, { volume: soundsVolume });
   const [playGameOver] = useSound(gameOverSound, { volume: soundsVolume });
   const [playWin] = useSound(winSound, { volume: soundsVolume });
-  const [playMusic, { stop: stopMusic, isPlaying, sound }] = useSound(music, {
+  const [playMusic, { stop: stopMusic, isPlaying }] = useSound(music, {
     loop: true,
     volume: musicVolume,
   });

@@ -2,14 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./header.css";
-import { themesMap, gridSizeMap } from "../../constants";
+import { themesMap } from "../../constants";
 import HotKeys from "./hotkeys";
 
 const Header = ({
-  gridSize,
   onChangeTheme,
-  onSizeSelect,
-  switcher,
   currentTheme,
 }) => {
   const onSwitchTheme = (e) => {
@@ -97,4 +94,5 @@ Header.propTypes = {
   onChangeTheme: PropTypes.func,
   gridSize: PropTypes.number,
   onSizeSelect: PropTypes.func,
+  currentTheme: PropTypes.string,
 };

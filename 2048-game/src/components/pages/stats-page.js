@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
 import {
   getLocalStorage,
-  setLocalStorage,
   clearLocalStorage,
 } from "../../hooks";
 import { storageNames } from "../../constants";

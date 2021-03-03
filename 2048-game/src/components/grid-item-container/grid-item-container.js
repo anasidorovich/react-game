@@ -20,7 +20,7 @@ const GridItemContainer = ({ items, size }) => {
         {...tile}
         size={size}
         className={classes}
-        onAnimationEnd={(e) => delete tile.merged}
+        onAnimationEnd={() => delete tile.merged}
       >
         <div className="tile-inner">
           <span>{tile.value}</span>
@@ -48,4 +48,5 @@ GridItemContainer.propTypes = {
   id: PropTypes.number,
   items: PropTypes.array,
   tile: PropTypes.any,
+  size: PropTypes.number,
 };

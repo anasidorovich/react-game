@@ -37,7 +37,7 @@ function getLocalStorage(key) {
   try {
     const item = window.localStorage.getItem(key);
     result = JSON.parse(item);
-  } catch {
+  } catch (error) {
     console.log(error);
   }
   return result;

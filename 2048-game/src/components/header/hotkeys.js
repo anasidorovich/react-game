@@ -3,7 +3,6 @@ import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Image from "react-bootstrap/Image";
 import hotkeyIcon from "../../assets/info-circle-solid.svg";
-import PropTypes from "prop-types";
 
 const HotKeys = () => {
   return (

@@ -138,3 +138,20 @@ const OptionsPopup = ({
 };
 
 export default OptionsPopup;
+
+OptionsPopup.propTypes = {
+  difficultyNum: PropTypes.number,
+  gridSize: PropTypes.number,
+  show: PropTypes.boolean,
+  onChangeGridSize: PropTypes.func,
+  onClickClose: PropTypes.func,
+  onChangeLevel: PropTypes.func,
+  soundIsChecked: PropTypes.boolean,
+  musicIsChecked: PropTypes.boolean,
+  musicVolume: PropTypes.number,
+  soundsVolume: PropTypes.number,
+  onChangeSound: PropTypes.func,
+  onChangeMusic: PropTypes.func,
+  onChangeSoundsVolume: PropTypes.func,
+  onChangeMusicVolume: PropTypes.func,
+};
