@@ -1,24 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
-import {
-  getLocalStorage,
-} from "../../hooks";
+import { getLocalStorage } from "../../hooks";
 import { storageNames, statsMock } from "../../constants";
 import Spinner from "../spinner";
-
-function groupBy(list, keyGetter) {
-  const map = new Map();
-  list.forEach((item) => {
-    const key = keyGetter(item);
-    const collection = map.get(key);
-    if (!collection) {
-      map.set(key, [item]);
-    } else {
-      collection.push(item);
-    }
-  });
-  return map;
-}
 
 const RecordsPage = () => {
   const [isLoad, setLoadState] = useState(false);
@@ -26,20 +10,11 @@ const RecordsPage = () => {
 
   useEffect(() => {
     const stats = getLocalStorage(storageNames.stats) || [];
-    const sortedObj = [];
-    const groupedByMode = groupBy(
-      stats.concat(statsMock).filter((obj) => obj.win),
-      (obj) => obj.mode
-    );
-    [...groupedByMode.values()].map((modes) => {
-      const groupedByLevel = groupBy(modes, (obj) => obj.level);
-      [...groupedByLevel.values()].map((levels) => {
-        const scores = levels.sort((a, b) => a.score - b.score);
-        sortedObj.push(scores);
-      });
-    });
-
-    setStatistics(sortedObj.flat());
+    const sortedObj = stats.concat(statsMock).filter((obj) => obj.win);
+    if (sortedObj.length > 10) {
+      sortedObj.slice(sortedObj.length - 10);
+    }
+    setStatistics(sortedObj.reverse());
     setLoadState(true);
   }, []);
 
