@@ -100,6 +100,7 @@ function App() {
       const localStore = cloneDeep(state);
       localStore.tiles.forEach((tile) => {
         delete tile.merged;
+        delete tile.isNew;
       });
       setLocalStorage(getStorageStateName(), localStore);
     }

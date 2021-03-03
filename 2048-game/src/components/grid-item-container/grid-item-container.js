@@ -11,6 +11,9 @@ const GridItemContainer = ({ items, size }) => {
     if (tile.merged) {
       classArray.push("tile-merged");
     }
+    if (tile.isNew) {
+      classArray.push("tile-new");
+    }
     const classes = classArray.join(" ");
     return (
       <Tile

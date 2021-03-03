@@ -12,13 +12,19 @@ const createTile = (row, col, value) => ({
   col,
   value,
   id: nanoid(),
+  isNew: true,
   state: tileStates.IDLE,
 });
+
+function getRandom(size) {
+  return Math.floor(Math.random() * size);
+}
 
 function createNewTiles(tiles, size) {
   const filledItems = new Set();
 
   tiles.forEach((tile) => {
+    delete tile.isNew;
     filledItems.add(tile.row * size + tile.col);
   });
 
@@ -28,14 +34,16 @@ function createNewTiles(tiles, size) {
   let col;
   let startSize = filledItems.size;
   do {
-    row = Math.floor(Math.random() * (size - 0.1));
-    col = Math.floor(Math.random() * (size - 0.1));
+    row = getRandom(size - 0.1);
+    col = getRandom(size - 0.1);
 
     const sum = row * size + col;
     filledItems.add(sum);
   } while (startSize === filledItems.size);
 
-  return [...tiles, createTile(row, col, 2)];
+  const value = getRandom(2) > 0 ? 2 : 4;
+
+  return [...tiles, createTile(row, col, value)];
 }
 
 export { createTile, createNewTiles, tileStates };
