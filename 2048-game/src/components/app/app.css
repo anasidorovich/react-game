@@ -116,19 +116,19 @@ body[data-theme="dark"] {
 }
 
 .dark .modal-body div {
-  background-image: url("../../assets/unicorns/28f6c9729f5570d49376a0acc6345449.jpg");
+  background-image: url("../../assets/cats/28f6c9729f5570d49376a0acc6345449.jpg");
 }
 
 .dark .modal-body .game-over {
-  background-image: url("../../assets/unicorns/Y8eRG5W7nGs.jpg");
+  background-image: url("../../assets/cats/Y8eRG5W7nGs.jpg");
 }
 
 .primary .modal-body div {
-  background-image: url("../../assets/unicorns/ee523b3298bd7e63eb7484f49e0aa7ae.jpg");
+  background-image: url("../../assets/uni/ee523b3298bd7e63eb7484f49e0aa7ae.jpg");
 }
 
 .primary .modal-body .game-over {
-  background-image: url("../../assets/unicorns/50b50c6a676bcee7734366fd679e0c66.jpg");
+  background-image: url("../../assets/uni/50b50c6a676bcee7734366fd679e0c66.jpg");
 }
 
 .primary .modal-body h4,
