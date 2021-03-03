@@ -44,3 +44,7 @@
 .play .btn {
   width: 100px;
 }
+
+.primary .stats .btn {
+  height: 48px;
+}

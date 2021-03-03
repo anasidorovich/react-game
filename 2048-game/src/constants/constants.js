@@ -46,6 +46,7 @@ export const storageNames = {
   level: "2048GameLevel",
   tileSize: "2048GameTileSize",
   gridSize: "2048GameSize",
+  stats: "2048GameStats",
 };
 
 export const hotKeys = {

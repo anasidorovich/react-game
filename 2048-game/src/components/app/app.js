@@ -18,6 +18,7 @@ import Footer from "../footer";
 import GameHeading from "../game-heading";
 import GridContainer from "../grid-container";
 import GridItemContainer from "../grid-item-container";
+import Spinner from "../spinner";
 
 import Popup from "./popup";
 import {
@@ -27,6 +28,7 @@ import {
   directions,
   combine,
   getTileSize,
+  setLocalStorageStats,
 } from "../../helpers";
 import {
   GAME,
@@ -95,7 +97,7 @@ function App() {
     setState(initState);
   };
 
-  const saveTiles = (state) => {
+  const saveTiles = () => {
     if (!playable) {
       const localStore = cloneDeep(state);
       localStore.tiles.forEach((tile) => {
@@ -104,6 +106,16 @@ function App() {
       });
       setLocalStorage(getStorageStateName(), localStore);
     }
+  };
+
+  const saveStats = () => {
+    const value = {
+      level: difficultyNum,
+      mode: `${gridSize}x${gridSize}`,
+      score: state.score,
+      win: state.hasWon,
+    };
+    setLocalStorageStats(value);
   };
 
   const onClickNewGame = () => {
@@ -151,11 +163,11 @@ function App() {
   const [musicIsChecked, setMusicIsChecked] = useState(false);
   const [soundsVolume, setSoundsVolume] = useLocalStorage(
     storageNames.soundsVolume,
-    0
+    0.2
   );
   const [musicVolume, setMusicVolume] = useLocalStorage(
     storageNames.musicVolume,
-    0
+    0.2
   );
   const onChangeSound = (e) => {
     setSoundIsChecked(e.target.checked);
@@ -284,8 +296,12 @@ function App() {
   useEffect(() => {
     const { hasWon } = state;
     if (hasWon) {
-      setPlayable(false);
-      saveTiles(state);
+      if (!playable) {
+        saveTiles();
+        saveStats();
+      } else {
+        setPlayable(false);
+      }
       setPopup(winPopup);
       if (soundIsChecked) {
         playWin();
@@ -296,8 +312,12 @@ function App() {
   useEffect(() => {
     const { gameOver } = state;
     if (gameOver) {
-      setPlayable(false);
-      saveTiles(state);
+      if (!playable) {
+        saveTiles();
+        saveStats();
+      } else {
+        setPlayable(false);
+      }
       setPopup(gameOverPopup);
       if (soundIsChecked) {
         playGameOver();
@@ -342,10 +362,8 @@ function App() {
 
   if (!currentTheme || status === "loading") {
     return (
-      <div className="spinner d-flex justify-content-center bg-primary">
-        <div className="spinner-border text-warning" role="status">
-          <span className="sr-only">Loading...</span>
-        </div>
+      <div className="page bg-primary">
+        <Spinner />
       </div>
     );
   }
