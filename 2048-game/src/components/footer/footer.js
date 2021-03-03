@@ -37,12 +37,16 @@ const Footer = () => {
           </a>
           <ul className="list-inline social-buttons">
             <li className="list-inline-item">
-              <a href="https://github.com/anasidorovich/react-game/tree/react-game">
+              <a
+                href="https://github.com/anasidorovich/react-game/tree/react-game"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <i className="fab fa-github"></i>
               </a>
             </li>
             <li className="list-inline-item">
-              <a href="#">
+              <a href="#" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-youtube"></i>
               </a>
             </li>

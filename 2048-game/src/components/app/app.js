@@ -139,7 +139,7 @@ function App() {
   };
 
   const [data, setData] = useState(getData);
-  const { switcher, currentTheme } = useThemeSwitcher();
+  const { switcher, currentTheme, status } = useThemeSwitcher();
   const [theme, setTheme] = useLocalStorage(storageNames.theme, GAME.theme);
 
   const [playable, setPlayable] = useState(false);
@@ -338,6 +338,16 @@ function App() {
   }, [playable]);
 
   useEvent("keydown", handleKeyDown);
+
+  if (!currentTheme || status === "loading") {
+    return (
+      <div className="spinner d-flex justify-content-center bg-primary">
+        <div className="spinner-border text-warning" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`app mr-auto ml-auto ${theme}`}>
