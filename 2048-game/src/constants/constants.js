@@ -50,9 +50,68 @@ export const storageNames = {
 };
 
 export const hotKeys = {
-  GO_TO_ABOUT: "ctrl+a",
+  GO_TO_STATS: "ctrl+s",
   GO_TO_OPTIONS: "ctrl+o",
   MUTE: "ctrl+m",
   SWITCH_TU_PULSE: "ctrl+p",
   SWITCH_TO_LUX: "ctrl+d",
 };
+
+export const statsMock = [
+  {
+    date: new Date().toLocaleDateString(),
+    mode: "4x4",
+    level: 2048,
+    score: 45,
+    win: true,
+  },
+  {
+    date: new Date().toLocaleDateString(),
+    mode: "4x4",
+    level: 2048,
+    score: 45,
+    win: true,
+  },
+  {
+    date: new Date().toLocaleDateString(),
+    mode: "4x4",
+    level: 2048,
+    score: 1,
+    win: true,
+  },
+  {
+    date: new Date().toLocaleDateString(),
+    mode: "5x5",
+    level: 32,
+    score: 45,
+    win: true,
+  },
+  {
+    date: new Date().toLocaleDateString(),
+    mode: "5x5",
+    level: 32,
+    score: 15,
+    win: true,
+  },
+  {
+    date: new Date().toLocaleDateString(),
+    mode: "6x6",
+    level: 1024,
+    score: 45,
+    win: true,
+  },
+  {
+    date: new Date().toLocaleDateString(),
+    mode: "4x4",
+    level: 1024,
+    score: 5,
+    win: true,
+  },
+  {
+    date: new Date().toLocaleDateString(),
+    mode: "4x4",
+    level: 1024,
+    score: 22,
+    win: true,
+  },
+];

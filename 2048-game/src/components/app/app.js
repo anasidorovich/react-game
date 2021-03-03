@@ -39,7 +39,7 @@ import {
   hotKeys,
 } from "../../constants";
 import OptionsPopup from "../options";
-import { AboutPage, StatsPage } from "../pages";
+import { AboutPage, StatsPage, RecordsPage } from "../pages";
 import mergedSound from "../../assets/merged.mp3";
 import winSound from "../../assets/success.mp3";
 import gameOverSound from "../../assets/game-over.mp3";
@@ -208,8 +208,8 @@ function App() {
 
   hotkeys(Object.values(hotKeys).toString(), function (event, handler) {
     switch (handler.key) {
-      case hotKeys.GO_TO_ABOUT:
-        history.push("/about");
+      case hotKeys.GO_TO_STATS:
+        history.push("/statistics");
         break;
       case hotKeys.GO_TO_OPTIONS:
         history.push("/");
@@ -379,6 +379,7 @@ function App() {
         />
         <Route path="/about" component={AboutPage} exact />
         <Route path="/statistics" component={StatsPage} exact />
+        <Route path="/records" component={RecordsPage} exact />
         <Route path="/" exact>
           <GameHeading
             score={state.score}

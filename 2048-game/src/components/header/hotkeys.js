@@ -15,7 +15,7 @@ const HotKeys = () => {
             <p className="text-center font-weight-bold">Hotkeys</p>
             <hr className="bg-warning" />
             <p>
-              <strong>CTRL + a:</strong> Go to about page.
+              <strong>CTRL + s:</strong> Go to stats page.
             </p>
             <p>
               <strong>CTRL + o</strong>: Go to options.

@@ -8,6 +8,7 @@ import {
   gridSizeMap,
   storageNames,
   hotKeys,
+  statsMock,
 } from "./constants";
 
 export {
@@ -20,4 +21,5 @@ export {
   gridSizeMap,
   storageNames,
   hotKeys,
+  statsMock,
 };
