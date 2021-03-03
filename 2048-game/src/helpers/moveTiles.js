@@ -26,7 +26,7 @@ const move = (initTiles, direction, size) => {
   for (let j = 0; j < size; j++) {
     for (let i = 0; i < size; i++) {
       if (gridItems[j][i] !== 0) {
-        moved = moveTile(gridItems, i, j);
+        moved = moveTile(gridItems, i, j) || moved;
       }
     }
   }

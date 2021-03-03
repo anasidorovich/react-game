@@ -41,7 +41,7 @@ function createNewTiles(tiles, size) {
     filledItems.add(sum);
   } while (startSize === filledItems.size);
 
-  const value = getRandom(2) > 0 ? 2 : 4;
+  const value = Math.random() < 0.9 ? 2 : 4;
 
   return [...tiles, createTile(row, col, value)];
 }
