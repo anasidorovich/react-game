@@ -10,9 +10,9 @@ const RecordsPage = () => {
 
   useEffect(() => {
     const stats = getLocalStorage(storageNames.stats) || [];
-    const sortedObj = stats.concat(statsMock).filter((obj) => obj.win);
+    let sortedObj = stats.concat(statsMock).filter((obj) => obj.win);
     if (sortedObj.length > 10) {
-      sortedObj.slice(sortedObj.length - 10);
+      sortedObj = sortedObj.slice(sortedObj.length - 10);
     }
     setStatistics(sortedObj.reverse());
     setLoadState(true);
