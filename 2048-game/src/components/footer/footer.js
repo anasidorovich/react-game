@@ -46,7 +46,7 @@ const Footer = () => {
               </a>
             </li>
             <li className="list-inline-item">
-              <a href="#" target="_blank" rel="noopener noreferrer">
+              <a href="https://youtu.be/xUpsJyCUrLg" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-youtube"></i>
               </a>
             </li>

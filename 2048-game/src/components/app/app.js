@@ -215,7 +215,6 @@ function App() {
         onClickOptions();
         break;
       case hotKeys.MUTE:
-        history.push("/");
         setSoundIsChecked(false);
         setMusicIsChecked(false);
         break;
