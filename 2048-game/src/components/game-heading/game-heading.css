@@ -1,0 +1,50 @@
+.game-heading {
+  justify-content: space-between;
+  width: 500px !important;
+  max-width: 500px !important;
+  margin: 0 auto;
+}
+
+@media (max-width: 520px) {
+  .game-heading {
+    justify-content: space-between;
+    width: 90vw !important;
+    max-width: 90vw !important;
+  }
+
+  .play {
+    flex-direction: column;
+  }
+}
+
+.score-container {
+  color: #fff;
+}
+.score-container .score,
+.score-container .record {
+  width: 80px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+}
+
+.options,
+.options button {
+  width: 100%;
+}
+
+.play {
+  height: 56px;
+}
+
+.dark .play .btn {
+  width: 120px;
+}
+
+.play .btn {
+  width: 100px;
+}
+
+.primary .stats .btn {
+  height: 48px;
+}

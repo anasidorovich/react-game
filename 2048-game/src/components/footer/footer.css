@@ -1,0 +1,53 @@
+footer .container {
+  height: 100px;
+}
+
+footer .socials {
+  justify-content: space-between;
+}
+
+footer .copy {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+footer .btn {
+  border-radius: 3px;
+}
+
+ul.social-buttons {
+  margin-bottom: 0;
+}
+
+ul.social-buttons li a:active,
+ul.social-buttons li a:focus,
+ul.social-buttons li a:hover {
+  background-color: #efa31d;
+}
+
+ul.social-buttons li a {
+  font-size: 20px;
+  line-height: 40px;
+  display: block;
+  width: 40px;
+  height: 40px;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  color: #fff;
+  outline: 0;
+  border: 1px solid;
+}
+
+footer {
+  height: 177px;
+  width: 100%;
+  text-align: center;
+}
+
+.rs-school {
+  background-image: url("../../assets/rs_school_js.svg");
+  height: 40px;
+  width: 108px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}

@@ -1,0 +1,34 @@
+.grid-container {
+  position: absolute;
+  z-index: 1;
+}
+
+.grid-row {
+  margin-bottom: 16px;
+}
+
+.grid-row:last-child {
+  margin-bottom: 0;
+}
+
+.grid-row:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.grid-cell {
+  margin-right: 16px;
+  float: left;
+  border-radius: 3px;
+  background: #f8f9fa;
+  box-shadow: inset 0 0 2em rgb(255 0 255 / 80%), 0 0 1em rgb(255 0 255 / 50%);
+}
+
+.dark .grid-cell {
+  box-shadow: inset 0 0 2em rgb(0 0 0 / 80%), 0 0 1em rgb(0 0 0 / 50%);
+}
+
+.grid-cell:last-child {
+  margin-right: 0;
+}
