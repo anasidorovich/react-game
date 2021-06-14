@@ -96,7 +96,7 @@ function App() {
     setState(initState);
   };
 
-  const saveTiles = () => {
+  const saveTiles = (state) => {
     if (!playable) {
       const localStore = cloneDeep(state);
       localStore.tiles.forEach((tile) => {
@@ -126,6 +126,7 @@ function App() {
   };
 
   const onClickAutoPlay = () => {
+    if (!playable) setState(initState);
     setPlayable((prevPlayable) => !prevPlayable);
   };
 
